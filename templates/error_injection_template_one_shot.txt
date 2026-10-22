@@ -1,0 +1,116 @@
+You are an expert mathematics professor and synthetic data generator. Your task is to generate a realistic, natural-sounding student solution to a given advanced mathematics problem.
+
+You will be provided with:
+1. The Problem
+2. The Markscheme (Grading Scheme)
+3. A Correct Reference Solution
+4. A Score Profile specifying exactly how many points the student earns on each rubric criterion
+
+Your objective is to write a complete candidate proof that earns **EXACTLY** the points specified in the score profile on each criterion.
+
+Rules:
+
+1. **Full-marks criteria**: The relevant proof sections must be mathematically sound and rigorous. You may freely copy or closely paraphrase corresponding parts of the reference solution—students who understand a technique often reproduce it in very similar language.
+
+2. **Deducted criteria — error calibration**: For criteria where points are LOST, introduce a *believable* student error proportional to the size of the deduction:
+   - **Minor deduction** (e.g., losing 1 of 3 points): a small gap—an off-by-one index, an edge case left unchecked, a minor algebraic slip, a missing quantifier, or an unjustified but plausible assertion.
+   - **Moderate deduction** (e.g., losing 2 of 3 points): a significant logical gap—wrong case analysis, an unverified hypothesis used as if proven, a crucial intermediate step hand-waved or skipped.
+   - **Full deduction** (losing all points on a criterion): a fundamental omission or conceptual error—the entire argument for that part is missing, a theorem is invoked with unmet hypotheses, or the approach simply does not address the criterion.
+
+3. **Error believability**: Every injected error must be one a competent but imperfect student would plausibly make. Ask yourself: "What would a student who understood the main ideas but rushed or overlooked something actually write?" Avoid random deletions or nonsensical mistakes.
+
+4. **Coherence**: The proof must read as a single, unified student attempt—not a patchwork of correct and incorrect pieces stitched together. Correct and incorrect sections must flow naturally into each other with consistent transitions, notation, and writing style throughout.
+
+5. **Copying policy**: You may copy or closely paraphrase the reference solution, especially for full-marks sections. For deducted sections, base your writing on the reference's structure but introduce the targeted errors organically. Do NOT egregiously copy-paste the entire reference and merely delete lines to simulate errors.
+
+---
+
+### Worked Example
+
+Below is a complete example demonstrating the expected input-to-output mapping.
+
+<example_problem>
+Let $k$ and $d$ be positive integers. Prove that there exists a positive integer $N$ such that for every odd integer $n>N$, the digits in the base-$2n$ representation of $n^k$ are all greater than $d$.
+</example_problem>
+
+<example_markscheme>
+[
+    {{
+        "desc": "Uses the base-2n representation of $n^k$ to find a closed form expression of each digit $a_i=\\left\\lfloor \\frac{{n^k}}{{(2n)^i}}\\right\\rfloor mod\\ (2n)$",
+        "points": 1,
+        "title": "Initial closed form expression for each digit"
+    }},
+    {{
+        "desc": "Transforms the digit expression into a easily boundable one by interchanging the floor and modulo operations.",
+        "points": 3,
+        "title": "Interchanging the floor and mod"
+    }},
+    {{
+        "desc": "Correctly bounds the aforementioned expression, usually by showing the numerator is divisible by n, so that $a_i>=\\left\\lfloor \\frac{{n}}{{2^i}}\\right\\rfloor$\\|.$",
+        "points": 2,
+        "title": "Bounding the expression"
+    }},
+    {{
+        "desc": "Chooses a provably sufficiently large $N$. The point is not awarded if it has not proven that n^k has at most k digits.",
+        "points": 1,
+        "title": "Finishing"
+    }}
+]
+</example_markscheme>
+
+<example_correct_solution>
+We claim one such $N$ is $\boxed{{N=2^{{k-1}}(d+1)}}$. Begin by letting $a_i$ be the digit at the $i$th position from the right (0-indexed) of $n^k$ in base $2n$; i.e., $a_0$ is the units digit. Obviously, $a_i=0$ for all $i\ge k$, since $n^k<(2n)^k$. We WTS $a_i>d$ for each $i=0,1,\dots,k-1$, and observe the following:
+\[ a_i=\left\lfloor\frac{{n^k}}{{(2n)^i}}\right\rfloor\text{{ mod }}2n=\left\lfloor\frac{{n^{{k-i}}}}{{2^i}}\right\rfloor\text{{ mod }}2n=\left\lfloor\frac{{n^{{k-i}}\text{{ mod }}2^{{i+1}}n}}{{2^i}}\right\rfloor. \]Note that the numerator is a positive multiple of $n$, since 1) $k-i>0\implies n\mid\gcd(n^{{k-i}},2^{{i+1}}n)$ and 2)
+($n$ is odd) $2^{{i+1}}n\nmid n^{{k-i}}$. Thus,
+\[ a_i=\left\lfloor\frac{{n^{{k-i}}\text{{ mod }}2^{{i+1}}n}}{{2^i}}\right\rfloor>d \quad\iff\quad n^{{k-i}}\text{{ mod }}2^{{i+1}}n\ge n\ge2^i(d+1), \]which is true since $n>N=2^{{k-1}}(d+1)$ and $k-1\ge i$. $\square$
+</example_correct_solution>
+
+<example_score_profile>
+1. "Initial closed form expression for each digit" (1 pts) → Awarded 1/1  [FULL MARKS]
+    Uses the base-2n representation of $n^k$ to find a closed form expression of each digit $a_i=\left\lfloor \frac{{n^k}}{{(2n)^i}}\right\rfloor mod\ (2n)$
+2. "Interchanging the floor and mod" (3 pts) → Awarded 3/3  [FULL MARKS]
+    Transforms the digit expression into a easily boundable one by interchanging the floor and modulo operations.
+3. "Bounding the expression" (2 pts) → Awarded 2/2  [FULL MARKS]
+    Correctly bounds the aforementioned expression, usually by showing the numerator is divisible by n, so that $a_i>=\left\lfloor \frac{{n}}{{2^i}}\right\rfloor$\|.$
+4. "Finishing" (1 pts) → Awarded 0/1  [LOSE 1/1 points]
+    Chooses a provably sufficiently large $N$. The point is not awarded if it has not proven that n^k has at most k digits.
+
+Total score: 6/7
+</example_score_profile>
+
+**Why this output works**: Criteria 1-3 earn full marks, so the student closely follows the reference. Criterion 4 loses its point because the student omits the digit-count bound "$a_i=0$ for all $i\ge k$ since $n^k<(2n)^k$"—a plausible oversight by a student who focused on the algebraic core and forgot to justify why only $k$ digits matter:
+
+# Candidate Solution
+We claim one such $N$ is $\boxed{{N=2^{{k-1}}(d+1)}}$. Begin by letting $a_i$ be the digit at the $i$th position from the right (0-indexed) of $n^k$ in base $2n$; i.e., $a_0$ is the units digit. We WTS $a_i>d$ for each $i=0,1,\dots,k-1$, and observe the following:$$ a_i=\left\lfloor\frac{{n^k}}{{(2n)^i}}\right\rfloor\text{{ mod }}2n=\left\lfloor\frac{{n^{{k-i}}}}{{2^i}}\right\rfloor\text{{ mod }}2n=\left\lfloor\frac{{n^{{k-i}}\text{{ mod }}2^{{i+1}}n}}{{2^i}}\right\rfloor. $$Note that the numerator is a positive multiple of $n$, since 1) $k-i>0\implies n\mid\gcd(n^{{k-i}},2^{{i+1}}n)$ and 2) ($n$ is odd) $2^{{i+1}}n\nmid n^{{k-i}}$. Thus,$$ a_i=\left\lfloor\frac{{n^{{k-i}}\text{{ mod }}2^{{i+1}}n}}{{2^i}}\right\rfloor>d \quad\iff\quad n^{{k-i}}\text{{ mod }}2^{{i+1}}n\ge n\ge2^i(d+1), $$which is true since $n>N=2^{{k-1}}(d+1)$ and $k-1\ge i$. \hfill $\square$
+
+# Grader's Notes
+- **Finishing (0/1)**: The student never shows that $n^k$ has at most $k$ digits in base $2n$ (i.e., omits "$a_i=0$ for all $i\ge k$ since $n^k<(2n)^k$"). Without this, the claim that it suffices to check only $i=0,\dots,k-1$ is unjustified, so $N$ is not proven sufficiently large.
+
+---
+
+Now generate a candidate student solution for the following:
+
+<problem>
+{problem}
+</problem>
+
+<markscheme>
+{grading_scheme}
+</markscheme>
+
+<correct_solution>
+{correct_solution}
+</correct_solution>
+
+<score_profile>
+{score_profile}
+</score_profile>
+
+Write the candidate proof below. Use standard LaTeX formatting for all mathematics.
+After the proof, provide a brief "Grader's Notes" section: for each deducted criterion, state the criterion name, the score awarded, the specific error introduced, and why it warrants that deduction.
+
+# Candidate Solution
+[The student's complete proof]
+
+# Grader's Notes
+[For each deducted criterion: criterion name (awarded/max), the specific error, and why it matches the deduction]

@@ -1,0 +1,26 @@
+{
+    "deepseek-v3.2-no-thinking": {
+        "name": "deepseek-chat",
+        "api": "YOUR_DEEPSEEK_API_KEY",
+        "url": "https://api.deepseek.com",
+        "max_tokens": 8192
+    },
+    "deepseek-v3.2-thinking": {
+        "name": "deepseek-reasoner",
+        "api": "YOUR_DEEPSEEK_API_KEY",
+        "url": "https://api.deepseek.com",
+        "max_tokens": 65536
+    },
+    "gpt-5": {
+        "name": "gpt-5",
+        "api": "YOUR_OPENAI_API_KEY",
+        "url": "https://api.openai.com/v1",
+        "max_tokens": 32768
+    },
+    "claude-opus-4-6-thinking": {
+        "name": "claude-opus-4-6-thinking-aws",
+        "api": "YOUR_API_KEY",
+        "url": "https://<openai-compatible-endpoint>/v1",
+        "max_tokens": 65536
+    }
+}

@@ -1,0 +1,226 @@
+[
+  {
+    "problem_idx": "1",
+    "problem": "Let $n$ be an integer greater than $1$. For which real numbers $x$ is\n\\[\n\\lfloor nx \\rfloor - \\sum_{k=1}^{n} \\frac{\\lfloor kx \\rfloor}{k}\n\\]\nmaximal, and what is the maximal value that this expression can take?\n \n\\textit{Note:} $\\lfloor z \\rfloor$ denotes the greatest integer less than or equal to $z$.",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "title": "Periodicity reduction",
+        "desc": "Proves that $f(x)$ is periodic with period 1 (i.e., $f(x+1) = f(x)$), allowing the domain to WLOG be restricted to $x \\in [0, 1)$ or any other interval of length 1.",
+        "points": 1
+      },
+      {
+        "title": "Monotonicity within intervals",
+        "desc": "Shows that within any interval of the form $[\\frac{\\ell}{n}, \\frac{\\ell+1}{n})$ for integer $\\ell$, $f(x)$ is non-increasing, restricting the search for the maximum to points of the form $x = \\frac{\\ell}{n}$.",
+        "points": 1
+      },
+      {
+        "title": "Candidate maximum evaluation",
+        "desc": "Evaluates $f(x)$ for the optimal range (e.g., testing $x \\in [1-\\frac{1}{n}, 1)$ or $x = \\frac{n-1}{n}$) and explicitly calculates the candidate maximum value $-1 + \\sum_{k=1}^n \\frac{1}{k}$.",
+        "points": 1
+      },
+      {
+        "title": "Fractional part reformulation",
+        "desc": "Expresses the function algebraically in terms of fractional parts (e.g., deriving the identity $f(x) = \\sum_{k=1}^n \\frac{\\{kx\\}}{k} - \\{nx\\}$ or $f(\\frac{\\ell}{n}) = \\sum_{k=1}^n \\frac{\\{k\\ell/n\\}}{k}$).",
+        "points": 1
+      },
+      {
+        "title": "General upper bound",
+        "desc": "Proves the general upper bound $\\sum_{k=1}^n \\frac{\\{k\\ell/n\\}}{k} \\le \\sum_{k=1}^n \\frac{n-k}{nk}$ for all integers $\\ell$. Partial credit (1 pt) for proving this bound only for the coprime case $\\gcd(\\ell, n) = 1$ but failing to handle $\\gcd(\\ell, n) > 1$.",
+        "points": 2
+      },
+      {
+        "title": "Equality cases and conclusion",
+        "desc": "Identifies the correct equality cases of the upper bound to conclude the exact set of optimal $x$ (i.e., proving the maximum is achieved for exactly $x \\in \\bigcup_{m \\in \\mathbb{Z}} [m + 1 - \\frac{1}{n}, m + 1)$).",
+        "points": 1
+      }
+    ],
+    "sample_solution": "The answer is \\[-1 + \\sum_{k = 1}^n \\frac1k.\\] Let $f(x)$ denote the assertion. \nClaim: It suffices to solve when $\\lfloor x \\rfloor = 0.$\nProof: \nIt suffices to show that the shift $x\\to x-1$ preserves the value. Indeed, we have \n\\begin{align*}\n    \\lfloor nx \\rfloor - \\sum_{k = 1}^n \\frac{\\lfloor kx \\rfloor} k & \\to \\lfloor n(x-1) \\rfloor - \\sum_{k = 1}^n \\frac{\\lfloor k(x-1)\\rfloor}{k} \\\\\n    & = \\lfloor nx\\rfloor - n - \\sum_{k = 1}^n \\frac{\\lfloor kx\\rfloor - k }{k} \\\\ \n    & = \\lfloor nx\\rfloor- \\sum_{k = 1}^n \\frac{\\lfloor kx\\rfloor}{k} \\\\  \n\\end{align*}\nso the value is preserved and our claim is proven. \n\nThus, WLOG that $0 \\leq x < 1.$\nClaim: The maximum is achieved at $1 - \\frac1 n \\leq x < 1.$\nProof: If $x = 1 - \\frac1m$ for a real $m \\geq n,$ then $\\lfloor kx \\rfloor = \\lfloor k - \\frac km \\rfloor = k - 1$ since $0 < \\frac km \\leq 1$. \n\nClaim: For each $0\\leq \\ell < n$, we have that \\[\\max_{\\frac{\\ell}{n}\\leq x < \\frac{\\ell + 1}n}f(x) = f\\left(\\frac{\\ell}n\\right).\\]\nProof: Note that as we move $x$ from $\\frac\\ell n\\to \\frac{\\ell + 1}{n},$ we have that $\\lfloor nx \\rfloor$ is constant while $-\\frac{\\lfloor kx\\rfloor}k$ can only decrease.\n\nThus, WLOG $x = \\frac \\ell n$ for an integer $0\\leq \\ell < n.$ Now, let $\\{\\bullet\\} = \\bullet - \\lfloor\\bullet\\rfloor.$ We rewrite as follows:\n\\begin{align*}\n    \\left\\lfloor nx\\right\\rfloor- \\sum_{k = 1}^n \\frac{\\left\\lfloor kx\\right\\rfloor}{k} & = \\ell- \\sum_{k = 1}^n \\frac{\\left\\lfloor \\frac{k\\ell }n\\right\\rfloor}{k} \\\\\n    & = \\sum_{k = 1}^n \\frac\\ell n - \\frac{\\left\\lfloor \\frac{k\\ell }n\\right\\rfloor}{k} \\\\\n    & = \\sum_{k = 1}^n \\frac{\\frac{k\\ell}n}{k} - \\frac{\\left\\lfloor \\frac{k\\ell }n\\right\\rfloor}{k} \\\\\n    & = \\sum_{k = 1}^n \\frac{\\left\\{ \\frac{k\\ell }n\\right\\}}{k} \\\\\n\\end{align*}\nLet $g = \\gcd(\\ell,n).$ Note that \n\\[\n    n\\left\\{ \\frac{k\\ell }n\\right\\} \\equiv k\\ell \\pmod n.\n\\]\nFurthermore, \\[g(k) = n\\left\\{ \\frac{k\\ell }n\\right\\}\\] permutes $\\left\\{0,g,2g,\\dots, \\left(\\frac ng - 1\\right)g\\right\\}$ due to the above $(2).$\n\nNow, write the sum as follows:\n\\begin{align*}\n    \\sum_{k = 1}^n \\frac{\\left\\{ \\frac{k\\ell }n\\right\\}}{k} & = \\sum_{k = 1}^{\\frac ng} \\frac{\\left\\{ \\frac{k\\ell }n\\right\\}}{k + \\frac{mn}{g}} \\text{ by (1)}\n\\end{align*}\nNow, due to $(2)$ and rearrangement, we must have that \n\\begin{align*}\n    \\sum_{k = 1}^{\\frac ng} \\frac{\\left\\{ \\frac{k\\ell }n\\right\\}}{k + \\frac{mn}{g}} & \\leq \\sum_{k = 1}^{\\frac ng} \\frac{1 - \\frac{kg}{n}}{k + \\frac{mn}{g}}.\n\\end{align*}\nThus, it suffices to show that  \\[\\sum_{m = 0}^{g-1}\\sum_{k = 1}^{\\frac ng} \\frac{1 - \\frac{kg}{n}}{k + \\frac{mn}{g}} \\leq \\sum_{k = 1}^n \\frac1k - \\frac1n = \\sum_{m = 0}^{g - 1}\\sum_{k = 1}^{\\frac ng}\\frac1{k + \\frac {mn}g} - \\frac1n.\\]\nWe sum by the columns ($m$), so it suffices to show that \n \\[\\sum_{m = 0}^{g-1}\\frac{1 - \\frac{kg}{n}}{k + \\frac{mn}{g}} \\leq \\sum_{m = 0}^{g - 1}\\frac1{k + \\frac {mn}g} - \\frac1n.\\]\nIndeed, \n\\begin{align*}\n    \\sum_{m = 0}^{g - 1}\\frac1{k + \\frac {mn}g} - \\frac1n & \\geq \\sum_{m = 1}^{g-1}  \\frac{1 - \\frac{kg}{n}}{k + \\frac{mn}g} + \\frac1k -\\frac gn\n\\end{align*}\nwhere we separated based on $m = 0$ and then we multiplied the other terms by $1 - \\frac{kg}n<1$. However, observe\n\\[\\sum_{m = 1}^{g-1}  \\frac{1 - \\frac{kg}{n}}{k + \\frac{mn}g} + \\frac1k -\\frac gn = \\sum_{m = 0}^{g - 1} \\frac{1 - \\frac{kg}{n}}{k + \\frac{mn}g}\\] and we are done. \n\nFinally, we need to check the equality cases. Note that for the equality above, we need $m = 0,$ so $g = 1$. Finally, for the rearrangement, we have \\[\\left\\{\\frac{k\\ell}n\\right\\} = 1 - \\frac{k}{n}\\] which obviously occurs when $\\ell = n - 1.$ We are done.",
+    "sample_grading": "{\n    \"points\": 7,\n    \"details\": [\n        {\n            \"title\": \"Periodicity reduction\",\n            \"points\": 1,\n            \"desc\": \"Proves that f(x) is periodic with period 1, allowing the domain to be restricted to [0, 1).\"\n        },\n        {\n            \"title\": \"Monotonicity within intervals\",\n            \"points\": 1,\n            \"desc\": \"Shows that within any interval [l/n, (l+1)/n), f(x) is non-increasing, restricting the search for the maximum to x = l/n.\"\n        },\n        {\n            \"title\": \"Candidate maximum evaluation\",\n            \"points\": 1,\n            \"desc\": \"Evaluates f(x) at x = (n-1)/n and calculates the candidate maximum value -1 + sum_{k=1}^n 1/k.\"\n        },\n        {\n            \"title\": \"Fractional part reformulation\",\n            \"points\": 1,\n            \"desc\": \"Expresses the function algebraically in terms of fractional parts.\"\n        },\n        {\n            \"title\": \"General upper bound\",\n            \"points\": 2,\n            \"desc\": \"Proves the general upper bound for all integers l, including gcd(l, n) > 1 case.\"\n        },\n        {\n            \"title\": \"Equality cases and conclusion\",\n            \"points\": 1,\n            \"desc\": \"Identifies the correct equality cases and concludes the exact set of optimal x.\"\n        }\n    ]\n}"
+  },
+  {
+    "problem_idx": "2",
+    "problem": "Annie is playing a game where she starts with a row of positive integers, written on a blackboard, each of which is a power of $2$. On each turn, she can erase two adjacent numbers and replace them with a power of $2$ that is greater than either of the erased numbers. This shortens the row of numbers, and she continues to take turns until only one number remains. Annie wins the game if the final remaining number is less than $4$ times the sum of the original numbers. Is it always possible for Annie to win, regardless of the starting row of numbers?",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "title": "Strategy definition and invariant formulation",
+        "desc": "Defines a deterministic strategy (forward or reverse) AND accurately states a precise mathematical invariant/bound that tracks the sequence's sum, explicitly formulating a strict lower bound on the initial sum required to generate a localized configuration of elements.",
+        "points": 2
+      },
+      {
+        "title": "Rigorous proof of bound",
+        "desc": "Rigorously proves that the bound holds globally via a flawless inductive, recursive, or telescoping algebraic argument, concluding that $F < 4S$. Partial credit (2 pts) for proving the bound for a restricted sub-case or setting up the induction correctly but failing the final reduction. Partial credit (4 pts) for a logically complete proof with a localized non-trivial gap.",
+        "points": 5
+      }
+    ],
+    "sample_solution": "The answer is yes.\n\nModify the game so that there is an extra allowed move, erasing $2^i$ and adding $2^{i+1}$ in its place. This clearly does not help her, but it will be useful in the proof.\n\nThe strategy is to clear all the $1$s, then all the $2$s, $4$s, and etc. By clear $1$s, I mean to optimally change all $1$s to $2$s with the given moves. We can see that we can change $2k-1$ or $2k$ ones to $k$ twos. Then, we change $2k-1$ or $2k$ twos to fours, and etc. For example,\n\n$$1211124211\\to22222422\\to44444\\to888\\to16\\text{ }16\\to32$$\nis optimal.\n\nNow, we can reverse this process. We now can change $k$ twos to $2k-1$ ones.\n\n$$32\\to16\\text{ }16\\to888\\to44444\\to22222422\\to1211124211$$\n\nWe want to prove that if we start from $2^i$, then we end with numbers summing to $>2^{i-2}$. Notice that the $2^i$ at the start cannot split to a single $2^{i-1}$, as then $2^{i-1}$ would be the end, not $2^i$. So, we want to prove that if we start from $2^{i-1}\\text{ }2^{i-1}$, then we end with sum $>2^{i-2}$.\n\nI claim that if we have $k+1$ adjacent numbers of value $2^n$, then they end with sum $>2^{n-1}k$. We prove this with induction on $n$. Base case of $n=0$ is trivial.\n\nInductive step: out of these $k+1$, let indices $a_1,a_2,a_3,\\ldots,a_m$ stay as $2^n$, and all others split to $2^{n-1}$. Assume splitting splits $x$ to $2x-1$ because yes. Then, with the inductive hypothesis, we have a sum of\n$$>2^nm+2^{n-2}(2a_1-4+2a_2-2a_1-4+2a_3-2a_2-4+\\ldots+2(k+2)-2a_m-4)=2^nm+2^{n-2}(2k-4m)=2^{n-1}k$$\nThe $2a_2-2a_1-4$ is from a gap of $a_2-a_1-1$ between consecutive $a$ values, forming $2a_2-2a_2-3$ $2^{n-1}$s. If $a_2-a_1=1$, then theres no values at all so like its $>$ anyways.\n\nClaim proven.\n\nLet $k=1$ and $n=i-1$, we get $>2^{i-2}$\n",
+    "sample_grading": "{\n    \"points\": 7,\n    \"details\": [\n        {\n            \"title\": \"Strategy definition and invariant formulation\",\n            \"points\": 2,\n            \"desc\": \"Defines a deterministic reverse strategy and formulates the invariant that k+1 adjacent numbers of value 2^n end with sum > 2^{n-1}k.\"\n        },\n        {\n            \"title\": \"Rigorous proof of bound\",\n            \"points\": 5,\n            \"desc\": \"Proves the bound globally via induction on n, concluding F < 4S.\"\n        }\n    ]\n}"
+  },
+  {
+    "problem_idx": "3",
+    "problem": "Let $ABC$ be an acute scalene triangle with no angle equal to $60^\\circ$. Let $\\omega$ be the circumcircle of $ABC$. Let $\\Delta_B$ be the equilateral triangle with three vertices on $\\omega$, one of which is $B$. Let $\\ell_B$ be the line through the two vertices of $\\Delta_B$ other than $B$. Let $\\Delta_C$ and $\\ell_C$ be defined analogously. Let $Y$ be the intersection of $AC$ and $\\ell_B$, and let $Z$ be the intersection of $AB$ and $\\ell_C$.\n\nLet $N$ be the midpoint of minor arc $BC$ on $\\omega$. Let $\\mathcal{R}$ be the triangle formed by $\\ell_B$, $\\ell_C$, and the tangent to $\\omega$ through $N$. Prove that the circumcircle of $AYZ$ and the incircle of $\\mathcal{R}$ are tangent.",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "title": "Triangle similarity",
+        "desc": "Proves that $\\triangle ABC \\sim \\triangle EFD$ (e.g., by identifying that $DE$ is tangent to $(AFE)$ and similar cyclic applications).",
+        "points": 1
+      },
+      {
+        "title": "Miquel point introduction",
+        "desc": "Introduces the Miquel point $P$ of $\\triangle ABC$ with respect to $D,E,F$ (the point of concurrency of the circles $(AFE)$, $(BDF)$, and $(CED)$).",
+        "points": 1
+      },
+      {
+        "title": "Spiral similarity center identification",
+        "desc": "Establishes that $P$ is the center of a spiral similarity mapping $\\triangle ABC$ to $\\triangle EFD$ (or equivalently, proves $\\triangle PAB \\sim \\triangle PEF$).",
+        "points": 1
+      },
+      {
+        "title": "Circumcenter triangle similarity",
+        "desc": "Proves that $\\triangle ABC \\sim \\triangle O_A O_B O_C$.",
+        "points": 1
+      },
+      {
+        "title": "Spiral similarity to circumcenter triangle",
+        "desc": "Proves that $P$ is the center of a spiral similarity mapping $\\triangle EFD$ (or $\\triangle ABC$) to $\\triangle O_A O_B O_C$.",
+        "points": 1
+      },
+      {
+        "title": "Circumcenter mapping",
+        "desc": "Deduces that $P$ is the center of a spiral similarity mapping the respective circumcenters $M \\to N \\to O$ (or establishes equivalent similarity triangles involving $M,N,O$).",
+        "points": 1
+      },
+      {
+        "title": "Final conclusion",
+        "desc": "Concludes $OM = ON$ using the properties of paired spiral similarities (e.g., noting that $\\triangle MNO \\sim \\triangle AEO_A$ and $O_A A = O_A E$).",
+        "points": 1
+      }
+    ],
+    "sample_solution": "Let $\\ell_B$ and $\\ell_C$ intersect at $D$. Let $O$ be the center of $\\omega$. Let $C',B'$ be the antipodes of $C,B$ in $\\omega$ respectively. \n\nEvidently, $\\ell_B$ and $\\ell_C$ are just the perpendicular bisectors of $OB'$ and $OC'$\n\nClaim: $O$ is the incenter of $\\triangle DYZ$.\n\nProof:\nWe reverse reconstruct. Let $X'$ be a variable point on the circle $\\omega'$ centered at $O$ with radius half of $\\omega$. Let the tangent from $X'$ to $\\omega'$ intersect $\\ell_B$ and $\\ell_C$ at $Y$ and $Z$. It remains to show that $CY$ and $BZ$ concur on $\\omega$.\n\nWe will use linear moving points. If $Y'$ and $Z'$ are the common points of $\\omega'$ with $\\ell_B$ and $\\ell_C$, note that \n\\[X'\\to \\text{midpoint of } X'Z'\\overset{\\text{inversion}}{\\to} Z\\to CZ\\cap \\omega\\]\nis projective and so is\n \\[X'\\to \\text{midpoint of } X'Y'\\overset{\\text{inversion}}{\\to} Y\\to BY\\cap \\omega\\]\nhence we need to check $3$ cases.\n\nFirst, let $X'$ be the south pole of $\\omega'$ where $BC$ is the parallel. \n\nThen, letting $A$ be the south pole of $\\omega$, we get\n\\[\\measuredangle OAB=90^\\circ-\\frac12\\measuredangle BOA=90^\\circ-\\frac14\\measuredangle Y'OZ'=45^\\circ+\\frac14\\measuredangle Z'DY'\\]\nYet \n\\[\\measuredangle OAZ=\\measuredangle ZOX'=45^\\circ+\\frac14\\measuredangle ZDY\\]\ntoo, thus $B,Z,A$ collinear, similarly $C,Y,A$ collinear and so $BZ\\cap CY=A\\in \\omega$.\n\nNow, let $X'=Z'$.\n\nIt suffices to show that $BX'\\cap CD \\in \\omega$\n\nThis is equivalent to \n\\[\\measuredangle CBX'+\\measuredangle DCB+\\measuredangle BB'C=180^\\circ\\]\nEquivalently, \n\\[\\measuredangle X'Y'C+\\measuredangle CX'Y'+\\measuredangle ODC=180^\\circ\\]\nor \n\\[\\measuredangle ODC=\\measuredangle Y'CX'\\]\nWe use cartesian coordinates now.\n\nLet $C=(-2,0), O=(0,0), X'=(1,0), Y'=(\\cos 2\\alpha, \\sin 2\\alpha)$\n\nThen, $y=\\angle Y'CX'$ is simply\n\\[\\tan y= \\frac{\\sin 2\\alpha}{2+\\cos 2\\alpha}\\]\nand $x=\\angle ODC$ is\n\\[\\cot(x+90^\\circ-\\alpha) = \\frac{\\tan \\alpha}{3}\\implies \\frac{\\tan \\alpha}{3}=\\tan (\\alpha- x)\\]\nBut expanding,\n\\[\\frac{\\tan \\alpha}{3}=\\frac{\\tan \\alpha - \\tan x}{1+\\tan \\alpha \\tan x}\\implies 2\\tan \\alpha = \\tan x (3+\\tan^2 \\alpha)\\]\nHence \n\\[\\tan x = \\frac{2\\tan \\alpha}{3+\\tan^2 \\alpha}=\\frac{2\\sin \\alpha \\cos \\alpha}{3\\cos^2 \\alpha + \\sin^2 \\alpha}=\\frac{\\sin 2\\alpha}{2+\\cos 2\\alpha}=\\tan y\\]\nso $x=y$ as desired.\n\nFinally, the case $X'=Y'$ is equivalent by symmetry, so we have three cases in total and our claim is proven. QED\n\nLet $O'$ be the reflection of $O$ over $YZ$. Clearly, as \n\\[\\measuredangle YO'Z=\\measuredangle ZOY=90^\\circ+\\frac12(180^\\circ-\\angle BOC)=180^\\circ-\\angle BAC\\]\n$O'$ lies on $(AYZ)$. \n\nWe look at triangle $OYZ$. Noting that $(O'YZ)$ is the reflection of $(OYZ)$ over $YZ$, define $K$ such that $OYKZ$ is a parallelogram. Let $X=NK\\cap (AYZ)$. Let $M$ be the major arc midpoint of arc $YZ$. \n\nNote, letting $Y=\\measuredangle DYZ$ and $Z= \\measuredangle YZD$,\n\\[\\measuredangle KXO'=\\measuredangle OYZ-\\measuredangle YZO=\\frac12(Y-Z) =90^\\circ - (Z/2+\\measuredangle ZON)=\\measuredangle NOO'\\]\nthus $NOXO'$ is cyclic.\n\nNow, \n\\begin{align*}\n\\measuredangle YXO &= \\measuredangle YXO'-\\measuredangle OXO' \\\\\n&=\\measuredangle YZO'-\\measuredangle ONO'\\\\\n&=\\measuredangle OZY +\\measuredangle OO'N\\\\\n&=\\measuredangle OZY +\\measuredangle OXZ+\\measuredangle ZXK\\\\\n&=\\measuredangle OXZ + \\measuredangle ZYK-\\measuredangle YZO\\\\\n&=\\measuredangle OXZ\n\\end{align*}\nso $OX$ bisects $\\angle YXZ$. Combining with $O$ being the incenter of $\\triangle DYZ$, we deduce that $X,O,M$ are collinear. \n\nHence $X$ is the unique point on $(AYZ)$ such $XO$ bisects $\\angle YXZ$. \n\nBy Protassov's theorem, It only remains to prove this tangent circle passes through $N$ as well. \n\nIndeed, let it have center $I$. Let $L$ be the center of $(AYZ)$. Then, $L,I,X$ are collinear. It suffices to prove that $IX = IN$. By homothety, it suffices to show that $KL\\parallel IN$. This is trivial as rotating $(KYZ)$, we get $(OYZ)$. \n\nFinally, noting as $DN$ bisects $\\angle ZDY$, the incircle of $\\mathcal{R}$ is the tangent circle we have constructed, so we're done.\n\n",
+    "sample_grading": "{\n    \"points\": 7,\n    \"details\": [\n        {\n            \"title\": \"Triangle similarity\",\n            \"points\": 1,\n            \"desc\": \"Proves the relevant triangle similarity.\"\n        },\n        {\n            \"title\": \"Miquel point introduction\",\n            \"points\": 1,\n            \"desc\": \"Introduces the Miquel point P.\"\n        },\n        {\n            \"title\": \"Spiral similarity center identification\",\n            \"points\": 1,\n            \"desc\": \"Establishes P as the center of a spiral similarity mapping triangle ABC to triangle EFD.\"\n        },\n        {\n            \"title\": \"Circumcenter triangle similarity\",\n            \"points\": 1,\n            \"desc\": \"Proves triangle ABC ~ triangle O_A O_B O_C.\"\n        },\n        {\n            \"title\": \"Spiral similarity to circumcenter triangle\",\n            \"points\": 1,\n            \"desc\": \"Proves P is the center of spiral similarity to the circumcenter triangle.\"\n        },\n        {\n            \"title\": \"Circumcenter mapping\",\n            \"points\": 1,\n            \"desc\": \"Deduces that P maps the respective circumcenters M -> N -> O.\"\n        },\n        {\n            \"title\": \"Final conclusion\",\n            \"points\": 1,\n            \"desc\": \"Concludes OM = ON using paired spiral similarity properties.\"\n        }\n    ]\n}"
+  },
+  {
+    "problem_idx": "4",
+    "problem": "A positive integer $n$ is called \\emph{solitary} if, for any nonnegative integers $a$ and $b$ such that $a + b = n$, either $a$ or $b$ contains the digit ``1''. Determine, with proof, the number of solitary integers less than $10^{2026}$.\n",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "title": "Answer and characterization",
+        "desc": "States the correct final answer ($2^{2026} - 1$) AND provides a valid, mathematically rigorous characterization of the solitary numbers.",
+        "points": 1
+      },
+      {
+        "title": "Local constraints / base mechanics",
+        "desc": "Rigorously establishes the rules of 1-free addition, proving what carries are strictly forced when attempting to form the specific digits of the characterized set using only digits from $\\{0, 2, 3, \\ldots, 9\\}$.",
+        "points": 1
+      },
+      {
+        "title": "Global contradiction for sufficiency",
+        "desc": "Synthesizes the local constraints to prove a global impossibility, definitively showing that forced carries chain together across the entire number to create an inescapable contradiction. This is all-or-nothing.",
+        "points": 2
+      },
+      {
+        "title": "Invariant / breakpoint for necessity",
+        "desc": "Identifies the structural feature of non-characterized numbers that permits a 1-free sum, and establishes a valid reduction/invariant.",
+        "points": 1
+      },
+      {
+        "title": "Global construction for necessity",
+        "desc": "Proves that the entire non-characterized integer $n$ can be formed by a 1-free sum via a generalized, rigorous construction or induction, explicitly verifying no contradiction occurs at boundaries. This is all-or-nothing.",
+        "points": 2
+      }
+    ],
+    "sample_solution": "The solitary integers are exactly the $b$ such that $b+1$ consists of only $0$s and $2$s, giving an answer of $2^{2026} - 1$.\n\nLet $\\underline{n}$ denote the digits of $n$. First, show that $\\underline{n}$ is solitary if and only if $\\underline{2} \\underline{n}$ is, and $\\underline{n}$ is solitary if and only if $\\underline{n}  \\underline{9}$ is.\n\nNote that leading zeros are allowed, so we now know that, say, $20021999$ is solitary. Let a number be \\emph{bare} if it has no leading twos or zeros and no trailing nines; we show the only bare solitary number is $1$.\n\nThis follows from strong induction on the number's length. All other one-digit bare numbers are not solitary. Note that, if $n-1$ is solitary, $10n+a$ is solitary for all $0 \\leq a \\leq 8$, by appending digits that sum to $10+a$.\n\nNow take the bare number $s = 10r + a$. For $10 \\nmid r$, $r-1$ is bare and solitary (and not $1$), so this works by induction. If $10 \\mid r$, on the other hand, we may write $r = j \\cdot 10^k$ and note $r-1$ is now some bare number (again, not $1$) followed by a block of $9$s. We may strip the nines by the original claim and the remaining number is not solitary by the inductive hypothesis, done.",
+    "sample_grading": "{\n    \"points\": 7,\n    \"details\": [\n        {\n            \"title\": \"Answer and characterization\",\n            \"points\": 1,\n            \"desc\": \"States the correct answer 2^{2026} - 1 and characterizes solitary numbers as those where b+1 consists of only 0s and 2s.\"\n        },\n        {\n            \"title\": \"Local constraints / base mechanics\",\n            \"points\": 1,\n            \"desc\": \"Establishes the rules of 1-free addition and the reduction that n is solitary iff 2n is, and n is solitary iff n9 is.\"\n        },\n        {\n            \"title\": \"Global contradiction for sufficiency\",\n            \"points\": 2,\n            \"desc\": \"Proves global impossibility by showing forced carries create an inescapable contradiction.\"\n        },\n        {\n            \"title\": \"Invariant / breakpoint for necessity\",\n            \"points\": 1,\n            \"desc\": \"Identifies bare numbers and shows the only bare solitary number is 1.\"\n        },\n        {\n            \"title\": \"Global construction for necessity\",\n            \"points\": 2,\n            \"desc\": \"Proves all non-characterized integers can be formed by a 1-free sum via strong induction.\"\n        }\n    ]\n}"
+  },
+  {
+    "problem_idx": "5",
+    "problem": "Let $ABC$ be a triangle. Points $D$, $E$, and $F$ lie on sides $BC$, $CA$, and $AB$, respectively, such that\n\\[\n\\angle AFE = \\angle BDF = \\angle CED.\n\\]\nLet $O_A$, $O_B$, and $O_C$ be the circumcenters of triangles $AFE$, $BDF$, and $CED$, respectively. Let $M$, $N$, and $O$ be the circumcenters of triangles $ABC$, $DEF$, and $O_A O_B O_C$, respectively. Prove that $OM = ON$.",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "title": "Triangle similarity",
+        "desc": "Proves that $\\triangle ABC \\sim \\triangle EFD$ (e.g., by identifying that $DE$ is tangent to $(AFE)$ and similar cyclic applications).",
+        "points": 1
+      },
+      {
+        "title": "Miquel point identification",
+        "desc": "Introduces the Miquel point $P$ of $\\triangle ABC$ with respect to $D,E,F$ and identifies it as the center of a spiral similarity mapping $\\triangle ABC$ to $\\triangle EFD$.",
+        "points": 1
+      },
+      {
+        "title": "Spiral similarity computation",
+        "desc": "Proves $\\triangle PAB \\sim \\triangle PEF$ (or equivalent spiral similarity relationships establishing $P$ as the center).",
+        "points": 1
+      },
+      {
+        "title": "Circumcenter triangle similarity",
+        "desc": "Proves that $\\triangle ABC \\sim \\triangle O_A O_B O_C$.",
+        "points": 1
+      },
+      {
+        "title": "Spiral similarity to circumcenter triangle",
+        "desc": "Proves that $P$ is the center of a spiral similarity mapping $\\triangle EFD$ (or $\\triangle ABC$) to $\\triangle O_A O_B O_C$ (e.g., by proving $\\triangle PEF \\sim \\triangle PO_A O_B$).",
+        "points": 1
+      },
+      {
+        "title": "Circumcenter mapping via paired spiral similarities",
+        "desc": "Deduces that $P$ is the center of a spiral similarity mapping the respective circumcenters $M \\to N \\to O$ (or establishes equivalent similarity triangles involving $M,N,O$).",
+        "points": 1
+      },
+      {
+        "title": "Final conclusion OM = ON",
+        "desc": "Concludes $OM = ON$ using the properties of paired spiral similarities (e.g., noting that $\\triangle MNO \\sim \\triangle AEO_A$ and $O_A A = O_A E$).",
+        "points": 1
+      }
+    ],
+    "sample_solution": "Claim 1. We have $\\triangle ABC\\sim\\triangle EFD\\sim \\triangle O_AO_BO_C$. \nProof. The given angle condition implies that $DE$ is tangent to $(AFE)$, so $\\angle DEF = \\angle EAF = \\angle CAB$. Similarly, $\\angle EFD = \\angle ABC$, so \n\\[\\triangle ABC\\sim \\triangle EFD.\\] \nNow by Miquel's theorem, the three circles $(AFE)$, $(BDF)$, and $(CED)$ meet at a point $P$. Note that $O_BO_A$ and $O_BO_C$ are the perpendicular bisectors of $PF$ and $PD$ respectively. Then $\\angle O_AO_BO_C = \\frac{1}{2}\\angle FO_BD = \\angle FBD = \\angle ABC$. Similarly, $\\angle O_BO_CO_A = \\angle BCA$ so \n\\[\\triangle O_AO_BO_C\\sim \\triangle ABC.\\]\n\nClaim 2. $P$ is the center of a spiral similarity between $\\triangle ABC$, $\\triangle EFD$, and $\\triangle O_AO_BO_C$.\nProof. From Claim 1, it suffices to show $\\triangle PAB\\sim \\triangle PEF\\sim \\triangle PO_AO_B$. From cyclic quadrilateral $PEAF$, we have $\\angle PAB = \\angle PEF$. Also, $\\angle PO_AO_B = \\frac{1}{2}\\angle PO_AF = \\angle PEF$, so \n\\[\\angle PAB = \\angle PEF = \\angle PO_AO_B.\\]\nSince $EF$ is tangent to $(PBF)$, we have $\\angle PBA = \\angle PFE$. Also, $\\angle PO_BO_A = \\frac{1}{2}\\angle PO_BF = \\angle PBA$, so \n\\[\\angle PBA = \\angle PFE = \\angle PO_BO_A.\\]\n\nAdding in the circumcenters, $P$ is the center of a spiral similarity between $ABCM$, $EFDN$, and $O_AO_BO_CO$. As spiral similarities come in pairs, $P$ is also the center of spiral similarity from $\\triangle AEO_A$ to $\\triangle MNO$. As $O_AA = O_AE$, we have $OM = ON$.",
+    "sample_grading": "{\n    \"points\": 7,\n    \"details\": [\n        {\n            \"title\": \"Triangle similarity\",\n            \"points\": 1,\n            \"desc\": \"Proves triangle ABC ~ triangle EFD.\"\n        },\n        {\n            \"title\": \"Miquel point identification\",\n            \"points\": 1,\n            \"desc\": \"Introduces Miquel point P.\"\n        },\n        {\n            \"title\": \"Spiral similarity computation\",\n            \"points\": 1,\n            \"desc\": \"Proves triangle PAB ~ triangle PEF.\"\n        },\n        {\n            \"title\": \"Circumcenter triangle similarity\",\n            \"points\": 1,\n            \"desc\": \"Proves triangle ABC ~ triangle O_A O_B O_C.\"\n        },\n        {\n            \"title\": \"Spiral similarity to circumcenter triangle\",\n            \"points\": 1,\n            \"desc\": \"Proves P maps triangle EFD to triangle O_A O_B O_C.\"\n        },\n        {\n            \"title\": \"Circumcenter mapping via paired spiral similarities\",\n            \"points\": 1,\n            \"desc\": \"Deduces P maps circumcenters M -> N -> O.\"\n        },\n        {\n            \"title\": \"Final conclusion OM = ON\",\n            \"points\": 1,\n            \"desc\": \"Concludes OM = ON using O_A A = O_A E.\"\n        }\n    ]\n}"
+  },
+  {
+    "problem_idx": "6",
+    "problem": "Let $a$ and $b$ be positive integers such that $\\varphi(ab+1)$ divides $a^2 + b^2 + 1$. Prove that $a$ and $b$ are Fibonacci numbers.\n",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "title": "Prime power reduction",
+        "desc": "Shows that $\\nu_2(a^2+b^2+1)=\\nu_2(\\varphi(ab+1))=1$ by parity arguments, and concludes that $ab+1 = p^t$ for an odd prime $p \\equiv 3 \\pmod 4$.",
+        "points": 1
+      },
+      {
+        "title": "Vieta Jumping setup (k=3)",
+        "desc": "Handles the case $t=1$: shows that $k=3$ in the relation $a^2 + b^2 + 1 = kab$ using Vieta Jumping.",
+        "points": 1
+      },
+      {
+        "title": "Fibonacci characterization via Vieta Jumping",
+        "desc": "Characterizes all solutions when $k=3$ as $(a,b) \\in \\{(1,1)\\} \\cup \\{(F_{2l+1},F_{2l+3}) | l \\in \\mathbb{Z}_{>0} \\} \\cup \\{(F_{2l+3},F_{2l+1}) | l \\in \\mathbb{Z}_{>0} \\}$ using Vieta Jumping.",
+        "points": 1
+      },
+      {
+        "title": "Quadratic residue restriction (p=3 or p equiv 1 mod 3)",
+        "desc": "Shows that $p=3$ or $p \\equiv 1 \\mod 3$ by applying divisibility properties, e.g., proving that $p \\mid (a^2+a+1)(a^2-a+1)$ implies -3 is a QR mod $p$.",
+        "points": 1
+      },
+      {
+        "title": "Eliminating p equiv 1 mod 3",
+        "desc": "Shows that $p \\equiv 1 \\mod 3$ is impossible, e.g., by noting it implies $3 | a$ or $3 | b$, leading to a contradiction mod 3.",
+        "points": 1
+      },
+      {
+        "title": "Eliminating t > 2",
+        "desc": "Shows that $t > 2$ is impossible by deriving a contradiction modulo 9.",
+        "points": 1
+      },
+      {
+        "title": "Handling t=2, p=3 case",
+        "desc": "Shows that $t = 2$ and $p = 3$ leads to the solutions (1,8) and (8,1), both of which are pairs of Fibonacci numbers.",
+        "points": 1
+      }
+    ],
+    "sample_solution": "The Fibonacci sequence is defined as $(F_n)_{n\\geq 0} : F_0 = 0, F_1 = 1, F_{n+2} = F_{n+1} + F_n, \\forall n \\geq 0$.\nNote that $4 \\nmid a^2 + b^2 + 1$, so $4 \\nmid \\varphi(ab + 1)$. Thus $ab+1$ is either $1, 2, 4, p^t, 2p^t$ for an odd prime $p$. We cannot have $ab + 1 = 1$. If $ab + 1 = 2$ then $a = b = 1 = F_1$. If $ab + 1 = 4$, then $\\{a, b\\} = \\{1, 3\\} = \\{F_1, F_4\\}$. So we only consider the other two cases.\n\nThen $a^2 + b^2 + 1$ is even, so one of $a, b$ is even, one is odd. Thus $ab+1$ is odd, so $ab + 1 = p^t$ for an odd prime $p$ and some $t \\geq 1$. In addition, we must also have $p \\equiv 3 \\pmod{4}$.\n\nNow we have:\n$$p^{t-1}(p-1) \\mid a^2 + b^2 + 1,$$\nso:\n$$0 \\equiv a^2 + b^2 + 1 \\equiv (a-b)^2 - 1 \\equiv (a-b-1)(a-b+1) \\pmod{p^{t-1}}.$$\nBecause $\\gcd(a-b-1, a-b+1) = 2$, one of them is divisible by $p^{t-1}$. WLOG, assume that $a \\equiv b+1 \\pmod{p^{t-1}}$. \n\nAssume that $t > 1$. We have a few cases:\n\nCase 1. If $a = b+1$, we have $a^2 + b^2 + 1 = 2(b^2 + b + 1) = 2(ab+1)$, so $p^{t-1}(p-1) \\mid 2p^t$, so $p - 1 \\mid 2p$, giving us $p = 3$. But $ab + 1 = b^2 + b + 1$ is not divisible by $9$, contradiction.\nCase 2. If $a > b+1$, we have $a \\geq p^{t-1}$, so $b < p$. But now since\n    $$a^2 + b^2 + 1 \\equiv 2(b^2 + b + 1) \\pmod{p^{t-1}},$$\n    we have $p^2 > (p-1)^2 + (p-1) + 1 \\geq b^2 + b + 1 \\geq p^{t-1}$. Thus $t - 1 < 2$, so $t = 2$.\nCase 3. If $a < b+1$, we have $b \\geq a + p^{t-1} - 1$, so $b \\geq p^{t-1}$ and $a < p$. But now since\n    $$a^2 + b^2 + 1 \\equiv 2(a^2 - a + 1) \\pmod{p^{t-1}},$$\n    we have $p^2 > a^2 - a + 1 \\geq p^{t-1}$. Thus $t - 1 < 2$, so $t = 2$.\n\nThus we always have $t = 2$. If $p = 3$, we have $ab = 8$, so $\\{a, b\\} = \\{1, 8\\} = \\{F_1, F_6\\}$. Consider $p \\neq 3$. From here, we have $ab = p^2 - 1 \\equiv 0 \\pmod{3}$, so $3 \\mid a$ or $3 \\mid b$. Then, $3 \\nmid a^2 + b^2 + 1$, so $3 \\nmid p(p-1)$, thus $p \\equiv 2 \\pmod{3}$. But now, we have\n$$0 \\equiv 4(ab+1) \\equiv 4(b^2 + b + 1) \\equiv (2b+1)^2 + 3 \\pmod{p},$$\nso by Legendre's symbol and $p \\equiv 3 \\pmod{4}, p \\equiv 1 \\pmod{3}$, we have:\n$$1 = \\left(\\dfrac{-3}{p}\\right) = \\left(\\dfrac{-1}{p}\\right)\\left(\\dfrac{3}{p}\\right) = -\\left(\\dfrac{3}{p}\\right) = \\left(\\dfrac{p}{3}\\right) = -1,$$\nwhich is absurd. \n\nThus, except for the case $p = 3, t = 2, \\{a, b\\} = \\{1, 8\\}$, we have $t = 1$, so $ab+1$ is prime. We thus have $ab \\mid a^2 + b^2 + 1$. This is a classic Viete Jumping problem, in short we will obtain that $\\dfrac{a^2+b^2+1}{ab} = 3$ and either $(a, b) = (1, 1)$, or $(a, b) = (F_{2l+1}, F_{2l+3})$ for some $l \\in \\mathbb{N}$.",
+    "sample_grading": "{\n    \"points\": 7,\n    \"details\": [\n        {\n            \"title\": \"Prime power reduction\",\n            \"points\": 1,\n            \"desc\": \"Shows ab+1 = p^t for odd prime p equiv 3 mod 4 via parity arguments.\"\n        },\n        {\n            \"title\": \"Vieta Jumping setup (k=3)\",\n            \"points\": 1,\n            \"desc\": \"Shows k=3 in the relation a^2 + b^2 + 1 = kab for the t=1 case.\"\n        },\n        {\n            \"title\": \"Fibonacci characterization via Vieta Jumping\",\n            \"points\": 1,\n            \"desc\": \"Characterizes all solutions when k=3 as consecutive odd-indexed Fibonacci numbers.\"\n        },\n        {\n            \"title\": \"Quadratic residue restriction\",\n            \"points\": 1,\n            \"desc\": \"Shows p=3 or p equiv 1 mod 3 via divisibility and QR arguments.\"\n        },\n        {\n            \"title\": \"Eliminating p equiv 1 mod 3\",\n            \"points\": 1,\n            \"desc\": \"Shows p equiv 1 mod 3 is impossible via contradiction mod 3.\"\n        },\n        {\n            \"title\": \"Eliminating t > 2\",\n            \"points\": 1,\n            \"desc\": \"Shows t > 2 is impossible via contradiction modulo 9.\"\n        },\n        {\n            \"title\": \"Handling t=2, p=3 case\",\n            \"points\": 1,\n            \"desc\": \"Shows t=2, p=3 gives (1,8) and (8,1), which are Fibonacci.\"\n        }\n    ]\n}"
+  }
+]

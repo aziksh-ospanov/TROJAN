@@ -1,0 +1,52 @@
+You are an expert mathematics professor revising a synthetic student solution. A critique found that some rubric criteria do NOT earn the intended number of points. Your task is to revise the solution so each criterion earns EXACTLY the target score.
+
+<problem>
+{problem}
+</problem>
+
+<markscheme>
+{grading_scheme}
+</markscheme>
+
+<correct_solution>
+{correct_solution}
+</correct_solution>
+
+<target_score_profile>
+{score_profile}
+</target_score_profile>
+
+<current_candidate>
+{candidate_solution}
+</current_candidate>
+
+<critique>
+{critique}
+</critique>
+
+Revision rules:
+
+1. **Preserve aligned criteria.** For criteria already matching the target score, keep those proof sections as close to unchanged as possible. Do not inadvertently break what already works.
+
+2. **Address each critique point specifically.** For each misaligned criterion, follow the critique's feedback:
+   - If the candidate earns **MORE** than the target: introduce a larger or more fundamental error to bring the score down. The error must be *believable* — something a competent but imperfect student would plausibly write.
+   - If the candidate earns **LESS** than the target: soften or partially fix the error so the student earns the intended partial credit. Use the reference solution to restore the relevant argument.
+
+3. **Error calibration:**
+   - Minor deduction (e.g., 1 of 3 points lost): small gap — off-by-one, unchecked edge case, missing quantifier, unjustified assertion.
+   - Moderate deduction (e.g., 2 of 3 points lost): significant logical gap — skipped step, unverified hypothesis, wrong case analysis.
+   - Full deduction (all points on a criterion lost): fundamental omission — entire argument missing, theorem misapplied, approach doesn't address the criterion.
+
+4. **Coherence.** The revised proof must read as a single, unified student attempt. After changing one section, re-read the surrounding paragraphs to ensure transitions, notation, and writing style remain consistent throughout.
+
+5. **Copying policy.** You may freely copy or closely paraphrase the reference solution for full-marks sections — students who master a technique often reproduce it in similar language. For deducted sections, base your revision on the reference's structure but weave in errors organically. Do NOT simply delete lines from the reference to simulate mistakes.
+
+6. **Minimal edits.** Make the smallest changes that fix the misalignments. Rewriting large correct sections increases the risk of introducing unintended new errors or breaking aligned criteria.
+
+Output format:
+
+# Candidate Solution
+[The revised proof]
+
+# Grader's Notes
+[For each deducted criterion: criterion name (awarded/max), the specific error, and why it matches the deduction]

@@ -1,0 +1,9 @@
+# Real API keys live here; commit llm_config.example.json instead
+llm_config.json
+
+__pycache__/
+*.pyc
+.DS_Store
+.claude/
+.venv/
+venv/

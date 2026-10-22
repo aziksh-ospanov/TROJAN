@@ -1,0 +1,161 @@
+[
+  {
+    "problem_idx": "1",
+    "problem": "Let $k$ and $d$ be positive integers. Prove that there exists a positive integer $N$ such that for every odd integer $n>N$, the digits in the base-$2n$ representation of $n^k$ are all greater than $d$.",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "desc": "Uses the base-2n representation of $n^k$ to find a closed form expression of each digit $a_i=\\left\\lfloor \\frac{n^k}{(2n)^i}\\right\\rfloor mod\\ (2n)$",
+        "points": 1,
+        "title": "Initial closed form expression for each digit"
+      },
+      {
+        "desc": "Transforms the digit expression into a easily boundable one by interchanging the floor and modulo operations.",
+        "points": 3,
+        "title": "Interchanging the floor and mod"
+      },
+      {
+        "desc": "Correctly bounds the aforementioned expression, usually by showing the numerator is divisible by n, so that $a_i>=\\left\\lfloor \\frac{n}{2^i}\\right\\rfloor$\\|.$",
+        "points": 2,
+        "title": "Bounding the expression"
+      },
+      {
+        "desc": "Chooses a provably sufficiently large $N$. The point is not awarded if it has not proven that n^k has at most k digits.",
+        "points": 1,
+        "title": "Finishing"
+      }
+    ],
+    "sample_solution": "We claim one such $N$ is $\\boxed{N=2^{k-1}(d+1)}$. Begin by letting $a_i$ be the digit at the $i$th position from the right (0-indexed) of $n^k$ in base $2n$; i.e., $a_0$ is the units digit. Obviously, $a_i=0$ for all $i\\ge k$, since $n^k<(2n)^k$. We WTS $a_i>d$ for each $i=0,1,\\dots,k-1$, and observe the following:\n\\[ a_i=\\left\\lfloor\\frac{n^k}{(2n)^i}\\right\\rfloor\\text{ mod }2n=\\left\\lfloor\\frac{n^{k-i}}{2^i}\\right\\rfloor\\text{ mod }2n=\\left\\lfloor\\frac{n^{k-i}\\text{ mod }2^{i+1}n}{2^i}\\right\\rfloor. \\]Note that the numerator is a positive multiple of $n$, since 1) $k-i>0\\implies n\\mid\\gcd(n^{k-i},2^{i+1}n)$ and 2)\n($n$ is odd) $2^{i+1}n\\nmid n^{k-i}$. Thus,\n\\[ a_i=\\left\\lfloor\\frac{n^{k-i}\\text{ mod }2^{i+1}n}{2^i}\\right\\rfloor>d \\quad\\iff\\quad n^{k-i}\\text{ mod }2^{i+1}n\\ge n\\ge2^i(d+1), \\]which is true since $n>N=2^{k-1}(d+1)$ and $k-1\\ge i$. $\\square$",
+    "sample_grading": "{\n    \"points\": 7,\n    \"details\":[\n        {\n            \"title\": \"Initial closed form expression for each digit\",\n            \"points\": 1,\n            \"desc\": \"Correctly uses the base-2n representation of n^k to find a closed form expression of each digit a_i=\\\\left\\\\lfloor \\\\frac{n^k}{(2n)^i}\\\\right\\\\rfloor mod (2n)\"\n        },\n        {\n            \"title\": \"Interchanging the floor and mod\",\n            \"points\": 3,\n            \"desc\": \"Transforms the digit expression into a easily boundable one by interchanging the floor and modulo operations.\"\n        },\n        {\n            \"title\": \"Bounding the expression\",\n            \"points\": 2,\n            \"desc\": \"Correctly bounds the aforementioned expression, usually by showing the numerator is divisible by n, so that $a_i>=\\\\left\\\\lfloor \\\\frac{n}{2^i}\\\\right\\\\rfloor$\\\\|.\"\n        },\n        {\n            \"title\": \"Finishing\",\n            \"points\": 1,\n            \"desc\": \"Chooses a provably sufficiently large $N$ and has proven that $n^k$ has more than $k$ digits.\"\n        }\n    ]\n}"
+  },
+  {
+    "problem_idx": "2",
+    "problem": "Let $n$ and $k$ be positive integers with $k<n$. Let $P(x)$ be a polynomial of degree $n$ with real coefficients, nonzero constant term, and no repeated roots. Suppose that for any real numbers $a_0,\\,a_1,\\,\\ldots,\\,a_k$ such that the polynomial $a_kx^k+\\cdots+a_1x+a_0$ divides $P(x)$, the product $a_0a_1\\cdots a_k$ is zero. Prove that $P(x)$ has a nonreal root.",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "desc": "Identifies 2 polynomials which share a coefficient of 0 at the same power of $x$.",
+        "points": 1,
+        "title": "Pigeonhole principle"
+      },
+      {
+        "desc": "Finds a divisor polynomial that has 2 adjacent zero coefficients.",
+        "points": 2,
+        "title": "Adjacent zero coefficients"
+      },
+      {
+        "desc": "Shows that a divisor polynomial with adjacent zero coefficients cannot have distinct real roots.",
+        "points": 3,
+        "title": "Root distinctness contradiction"
+      },
+      {
+        "desc": "Combines everything into a cohesive and correct solution (all the separate concepts, or the entire solutions must be correct).",
+        "points": 1,
+        "title": "Finishing"
+      }
+    ],
+    "sample_solution": "Assume FTSOC $P$ has $n$ real roots. WLOG $P$ has leading coefficient $1$ so let $P(x)=:(x-r_1)\\cdots(x-r_n)$. WLOG $k=n-1$, as otherwise we can take $Q:=(x-r_1)\\cdots(x-r_{k+1})$ and deal with $Q$ instead of $P$.\n\nBy the assertion, each $\\frac{P(x)}{x-r_i}$ for $1\\leq i\\leq n$ has a coefficient equal to $0$. Since $r_i\\neq 0$ for all $i$, this coefficient is not the leading or constant coefficient, so it has $k-1=n-2$ choices. By pigeonhole, there exists $1\\leq i<j\\leq n$ such that $Q(x):=\\frac{P(x)}{x-r_i}$ and $R(x):=\\frac{P(x)}{x-r_j}$ have no $x^\\alpha$ term, for some $\\alpha\\geq 1$. WLOG $i=n-1$ and $j=n$. Hence\n\\begin{align*}\nP(x)&=(x-r_1)\\cdots(x-r_{n-2})(x-r_n)\\\\\nQ(x)&=(x-r_1)\\cdots(x-r_{n-2})(x-r_{n-1}).\n\\end{align*}Then $P(x)-Q(x)=(r_{n-1}-r_n)(x-r_1)\\cdots(x-r_{n-2})$ has no $x^\\alpha$ term, so $A(x):=(x-r_1)\\cdots(x-r_{n-2})$ has no $x^\\alpha$ term since $r_{n-1}\\neq r_n$. Also, $r_{n-1}P(x)-r_nQ(x)=x(r_{n-1}-r_n)(x-r_1)\\cdots(x-r_{n-2})$ has no $x^\\alpha$ term so $A(x)$ has no $x^{\\alpha-1}$ term.\n\nClaim. $A(x)$ cannot have $n-2$ distinct real roots.\nProof. Suppose FTSOC $A(x)$ has $n-2$ distinct real roots. We claim that $A^{(m)}(x)$, the $m$th derivative of $A(x)$, has $n-2-m$ distinct real roots for all $m\\leq n-2$. We proceed by induction on $m$ with the base case $m=0$ trivial.\n\nAssume $A^{(m)}(x)$ has $n-2-m$ distinct real roots. Between every $2$ consecutive real roots there exists a local extremum, where $A^{(m+1)}(x)$ is $0$. $A^{(m)}(x)$ has $n-2-m-1$ pairs of consecutive real roots so $A^{(m+1)}(x)$ has $n-2-(m+1)$ distinct real roots, completing the induction step.\n\nThus $A^{(\\alpha-1)}$ has no $x^{(\\alpha-1)-(\\alpha-1)}=x^0$ or $x^{\\alpha-(\\alpha-1)}=x$ term, so $0$ is a double root of $A^{(\\alpha-1)}$. However, all the roots of $A^{(\\alpha-1)}$ are distinct and real, a contradiction. $\\square$\n\nThis is a contradiction since $r_1,\\,\\ldots,\\,r_{n-2}$ are distinct real numbers. Thus $P$ has a nonreal root. $\\square$",
+    "sample_grading": "{\n    \"id\": \"2\",\n    \"points\": 7,\n    \"details\":[\n        {\n            \"title\": \"Pigeonhole principle\",\n            \"points\": 1,\n            \"desc\": \"Identifies 2 polynomials which share a coefficient of 0 at the same power of $x$.\"\n        },\n        {\n            \"title\": \"Adjacent zero coefficients\",\n            \"points\": 2,\n            \"desc\": \"Finds a divisor polynomial that has 2 adjacent zero coefficients.\"\n        },\n        {\n            \"title\": \"Root distinctness contradiction\",\n            \"points\": 3,\n            \"desc\": \"Shows that a divisor polynomial with adjacent zero coefficients cannot have distinct real roots.\"\n        },\n        {\n            \"title\": \"Finishing\",\n            \"points\": 1,\n            \"desc\": \"Combines everything into a cohesive and correct solution.\"\n        }\n    ]\n}"
+  },
+  {
+    "problem_idx": "3",
+    "problem": "Alice the architect and Bob the builder play a game. First, Alice chooses two points $P$ and $Q$ in the plane and a subset $\\mathcal{S}$ of the plane, which are announced to Bob. Next, Bob marks infinitely many points in the plane, designating each a city. He may not place two cities within distance at most one unit of each other, and no three cities he places may be collinear. Finally, roads are constructed between the cities as follows: for each pair $A,\\,B$ of cities, they are connected with a road along the line segment $AB$ if and only if the following condition holds:\n\\begin{center}\nFor every city $C$ distinct from $A$ and $B$, there exists $R\\in\\mathcal{S}$ such\nthat $\\triangle PQR$ is directly similar to either $\\triangle ABC$ or $\\triangle BAC$.\n\\end{center}\nAlice wins the game if (i) the resulting roads allow for travel between any pair of cities via a finite sequence of roads and (ii) no two roads cross. Otherwise, Bob wins. Determine, with proof, which player has a winning strategy.\n\nNote: $\\triangle UVW$ is directly similar to $\\triangle XYZ$ if there exists a sequence of rotations, translations, and dilations sending $U$ to $X$, $V$ to $Y$, and $W$ to $Z$.",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "desc": "The given construction is correct and induces a graph that is connected.",
+        "points": 3,
+        "title": "Connectivity of construction"
+      },
+      {
+        "desc": "The given construction induces a graph where the shortest path between any two nodes is finite.",
+        "points": 1,
+        "title": "Finiteness of shortest paths"
+      },
+      {
+        "desc": "The given construction is correct and induces a planar graph.",
+        "points": 2,
+        "title": "Showing the graph is planar"
+      },
+      {
+        "desc": "Combining planarity and finite connectivity to show that the construction is a winning strategy for Alice.",
+        "points": 1,
+        "title": "Finishing"
+      }
+    ],
+    "sample_solution": "The answer is that Alice wins. Let's define a Bob-set $V$ to be a set of points in the plane with no three collinear and with all distances at least $1$. The point of the problem is to prove the following fact.\nClaim: Given a Bob-set $V \\subseteq {\\mathbb R}^2$, consider the Bob-graph with vertex set $V$ defined as follows: draw edge $ab$ if and only if the disk with diameter $\\overline{ab}$ contains no other points of $V$ on or inside it. Then the Bob-graph is (i) connected, and (ii) planar.\nProving this claim shows that Alice wins since Alice can specify $\\mathcal{S}$ to be the set of points outside the disk of diameter $PQ$.\nProof. [Proof that every Bob-graph is connected] Assume for contradiction the graph is disconnected. Let $p$ and $q$ be two points in different connected components. Since $pq$ is not an edge, there exists a third point $r$ inside the disk with diameter $\\overline{pq}$.\nHence, $r$ is in a different connected component from at least one of $p$ or $q$ --- let's say point $p$. Then we repeat the same argument on the disk with diameter $\\overline{pr}$ to find a new point $s$, non-adjacent to either $p$ or $r$. See the figure below, where the X'ed out dashed edges indicate points which are not only non-adjacent but in different connected components.\n\nIn this way we generate an infinite sequence of distances $\\delta_1$, $\\delta_2$, $\\delta_3$, \\dots\\ among the non-edges in the picture above. By the ``Pythagorean theorem'' (or really the inequality for it), we have\\[ \\delta_i^2 \\le \\delta_{i-1}^2 - 1 \\]and this eventually generates a contradiction for large $i$, since we get $0 \\le \\delta_i^2 \\le \\delta_1^2 - (i-1)$. $\\blacksquare$\nProof. [Proof that every Bob-graph is planar] Assume for contradiction edges $ac$ and $bd$ meet, meaning $abcd$ is a convex quadrilateral. WLOG assume $\\angle bad \\ge 90^{\\circ}$ (each quadrilateral has an angle at least $90^{\\circ}$). Then the disk with diameter $\\overline{bd}$ contains $a$, contradiction. $\\blacksquare$",
+    "sample_grading": "{\n    \"points\": 7,\n    \"details\": [\n        {\n            \"title\": \"Connectivity of construction\",\n            \"points\": 3,\n            \"desc\": \"The given construction is correct and induces a graph that is connected.\"\n        },\n        {\n            \"title\": \"Finiteness of shortest paths\",\n            \"points\": 1,\n            \"desc\": \"The given construction induces a graph where the shortest path between any two nodes is finite.\"\n        },\n        {\n            \"title\": \"Showing the graph is planar\",\n            \"points\": 2,\n            \"desc\": \"The given construction is correct and induces a planar graph.\"\n        },\n        {\n            \"title\": \"Finishing\",\n            \"points\": 1,\n            \"desc\": \"Combines planarity and finite connectivity to show that the construction is a winning strategy for Alice.\"\n        }\n    ]\n}"
+  },
+  {
+    "problem_idx": "4",
+    "problem": "Let $H$ be the orthocenter of acute triangle $ABC$, let $F$ be the foot of the altitude from $C$ to $AB$, and let $P$ be the reflection of $H$ across $BC$. Suppose that the circumcircle of triangle $AFP$ intersects line $BC$ at two distinct points $X$ and $Y$. Prove that $C$ is the midpoint of $XY$.",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "desc": "Constructs useful points. Is only granted if the given construction gives you useful properties that can be used to reach the solution.",
+        "points": 1,
+        "title": "Additional construction"
+      },
+      {
+        "desc": "Proves useful properties of the construction that involves some symmetry along the $(AFP)$ circle. Points are granted based on the progress made.",
+        "points": 4,
+        "title": "Properties of the construction"
+      },
+      {
+        "desc": "Shows that $CX=CY$ by utilising the aforementioned properties",
+        "points": 2,
+        "title": "Finishing"
+      }
+    ],
+    "sample_solution": "Consider the line perpendicular to $BC$ at $C$. Let this line meet $(ABC)$ at $C'$. Let $M$ be the midpoint of $CC'$. We claim $M$ is the circumcenter of $AFP$. Note that $P$ lies on $(ABC)$.\n\nClearly $AC'CP$ is an isosceles trapezoid, so the perpendicular bisector of $AP$ meets $CC'$ at $M$. Now, since $\\angle BCC' = 90$, $\\angle C'AB = 180 - \\angle BCC' = 90$, so $AC' \\mid\\mid CF$. Let the reflection of $H$ over $F$ be $H'$, and notice $H'$ lies on $(ABC)$. Then the perpendicular bisector of $AF$ is just the midline of $AC'CH'$, so it also passes through $M$. Therefore, $M$ is the circumcenter of $AFP$.\n\nNow, clearly $\\triangle MCX \\cong \\triangle MCY$, so $CX = CY$ and we are done.",
+    "sample_grading": "{\n    \"points\": 7,\n    \"details\": [\n        {\n            \"title\": \"Additional construction\",\n            \"points\": 1,\n            \"desc\": \"Constructs the point $M$, which turns out to be the circumcenter of $\\triangle AFP$.\"\n        },\n        {\n            \"title\": \"Properties of the construction\",\n            \"points\": 4,\n            \"desc\": \"Proves that $M$ is the circumcenter of $\\triangle AFP$.\"\n        },\n        {\n            \"title\": \"Finishing\",\n            \"points\": 2,\n            \"desc\": \"Shows that $CX=CY$ by utilising the aforementioned properties\"\n        }\n    ]\n}"
+  },
+  {
+    "problem_idx": "5",
+    "problem": "Determine, with proof, all positive integers $k$ such that$$\\frac{1}{n+1} \\sum_{i=0}^n \\binom{n}{i}^k$$is an integer for all positive integers $n.$",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "desc": "Uses Chinese Remainder Theorem to reduce the problem to a system of equations modulo $p_l^{e_l}$.",
+        "points": 1,
+        "title": "Reduction to powers of prime divisors of n+1"
+      },
+      {
+        "desc": "Represents the term $n \\choose i$ as a product of fractions $\\frac{n-j}{j}$ and finds the remainder of the terms $\\frac{n-l}{l}^k$ where $p_l$ does not divide $j$.",
+        "points": 3,
+        "title": "Remainder of $\\frac{n-j}{j} when p_l does not divide j"
+      },
+      {
+        "desc": "Represents the term $n \\choose i$ as a product of fractions $\\frac{n-j}{j}$ and finds the remainder of the terms $\\frac{n-l}{l}^k$ where $p_l$ divides $j$.",
+        "points": 3,
+        "title": "Remainder of $\\frac{n-j}{j} when $p_l$ divides $j$"
+      }
+    ],
+    "sample_solution": "We claim that the answer is $\\boxed{\\text{all even integers}}.$\n\nProof that odd $k$ fail: Just take $n = 2$ and get $2^k + 2$ is divisible by $3,$ which implies $2^k \\equiv 1 \\pmod{3}$ This can only happen if $k$ is even.\n\nProof that even $k$ work: Substitute $n-1$ in place for $n$ in the problem; we then must prove that$$\\frac{1}{n} \\sum_{i=0}^{n-1} \\binom{n-1}{i}^k$$is an integer for all positive integers $n.$ Call $n$ $k$-good if $n$ satisfies this condition. Letting $\\omega(n)$ denote the number of not necessarily distinct prime factors of $n,$ we will prove that all positive integers $n$ are $k$-good by induction on $\\omega(n).$ The base case is trivial since if $\\omega(n) = 0,$ then $n = 1,$ which vacuously works.\n\nNow suppose that the result was true for all $n$ such that $\\omega(n) \\le a.$ Let the prime factorization of $n$ be $p_1^{e_1} \\cdot p_2^{e_2} \\cdots p_m^{e_m},$ where $p_1, \\dots, p_m$ are distinct primes and $e_1, \\dots, e_m \\in \\mathbb{N}$ such that $e_1 + \\dots + e_m = a+1.$ We will show that$$\\sum_{i=0}^{n-1} \\binom{n-1}{i}^k \\equiv 0 \\pmod{p_l^{e_l}}$$for all $1 \\le l \\le m,$ which finishes the inductive step by CRT.\n\nWe compute\n\\begin{align*}\n\\binom{n-1}{i} &= \\frac{(n-1)!}{i! (n-i-1)!} \\\\\n&= \\frac{(n-1)(n-2)\\cdots (n-i)}{i!} \\\\\n&= \\prod_{j=1}^i \\frac{n-j}{j},\n\\end{align*}so$$\\binom{n-1}{i}^k = \\prod_{j=1}^i \\left(\\frac{n-j}{j}\\right)^k.$$If $p_l \\nmid j,$ then $p_l \\nmid n-j$ as well since $p_l \\mid n.$ Thus $j$ has a modular inverse modulo $p_l^{e_k},$ so we can say$$\\left(\\frac{n-j}{j}\\right)^k \\equiv \\left(\\frac{-j}{j}\\right)^k \\equiv (-1)^k \\equiv 1 \\pmod{p_l^{e_k}}$$because $k$ is even. Hence the terms in this product for which $p_l \\nmid j$ contribute nothing to the binomial coefficient.\n\nIf $p_l \\mid j,$ then we have$$\\frac{n-j}{j} = \\frac{\\frac{n}{p_l} - \\frac{j}{p_l}}{\\frac{j}{p_l}}.$$Reindexing the product in terms of $\\frac{j}{p_l},$ we get$$\\binom{n-1}{i}^k \\equiv \\prod_{j'=1}^{\\lfloor i/p_l \\rfloor} \\left(\\frac{n/p_l - j'}{j'}\\right)^k \\equiv \\binom{n/p_l}{\\lfloor i/p_l \\rfloor}^k \\pmod{p_l^{e_l}}.$$Therefore, plugging back into our sum gives$$\\sum_{i=0}^{n-1} \\binom{n-1}{i}^k \\equiv p_l \\sum_{i=0}^{n/p_l - 1} \\binom{n/p_l - 1}{i}^k \\pmod{p_l^{e_l}}.$$By the inductive hypothesis, the sum on the right-hand side is divisible by $p_l^{e_l - 1},$ so the entire sum is divisible by $p_l^{e_l}.$ This completes our inductive step.\n\nTherefore, we have proven that all positive integers $n$ are $k$-good, and we are done.",
+    "sample_grading": "{\n    \"points\": 7,\n    \"details\": [\n        {                                                                                                                        \n            \"title\": \"Reduction to powers of prime divisors of n+1\",\n            \"points\": 1,\n            \"desc\": \"Uses Chinese Remainder Theorem to reduce the problem to a system of equations modulo $p_l^{e_l}$.\"\n        },\n        {\n            \"title\": \"Remainder of $\\\\frac{n-j}{j} when p_l does not divide j\",\n            \"points\": 3,\n            \"desc\": \"Represents the term $n \\\\choose i$ as a product of fractions $\\\\frac{n-j}{j}$ and finds the remainder of the terms $\\\\frac{n-l}{l}^k$ where $p_l$ does not divide $j$.\"\n        },\n        {   \n            \"title\": \"Remainder of $\\\\frac{n-j}{j} when $p_l$ divides $j$\",\n            \"points\": 3,\n            \"desc\": \"Represents the term $n \\\\choose i$ as a product of fractions $\\\\frac{n-j}{j}$ and finds the remainder of the terms $\\\\frac{n-l}{l}^k$ where $p_l$ divides $j$.\"\n        }\n    ]\n}"
+  },
+  {
+    "problem_idx": "6",
+    "problem": "Let $m$ and $n$ be positive integers with $m\\geq n$. There are $m$ cupcakes of different flavors arranged around a circle and $n$ people who like cupcakes. Each person assigns a nonnegative real number score to each cupcake, depending on how much they like the cupcake. Suppose that for each person $P$, it is possible to partition the circle of $m$ cupcakes into $n$ groups of consecutive cupcakes so that the sum of $P$'s scores of the cupcakes in each group is at least $1$. Prove that it is possible to distribute the $m$ cupcakes to the $n$ people so that each person $P$ receives cupcakes of total score at least $1$ with respect to $P$.",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "desc": "Redefine the problem as a graph matching problem using a viable reformulation.",
+        "points": 1,
+        "title": "Defining a graph"
+      },
+      {
+        "desc": "Apply the converse of Hall's theorem as many times as possible until you reach a set that has a perfect matching",
+        "points": 3,
+        "title": "Hall's theorem"
+      },
+      {
+        "desc": "Show that by applying the matching of the final set you can reduce the problem by 1 person.",
+        "points": 3,
+        "title": "Reducing the problem"
+      }
+    ],
+    "sample_solution": "Define the $P$ person's partitions as bubbles. Then we get a matching between the $n$ people $P$ and the first person's $n$ bubbles $B$. Connect a person to a bubble if they value that bubble as more than $1$, so one person is connected to all the bubbles on this bipartite graph $G \\subset P \\times B$. If Hall's condition is satisfied on these people, take that matching to win. Else, there exists some set $X$ of people such that they match less than $|X|$ bubbles. Remove that set, and repeatedly remove any set with $|N_G(X)| < |X|$. We must end up with some non-empty set of people $M$ such that $M$ and $N_G(M)$ have a matching, and no person in $P \\setminus M$ matches any bubble in $N_G(M)$. In this case, we may take a matching on $M$ and $N_G(M)$, and remove this matching and the corresponding bubbles. Since the remaining people aren't connected to these bubbles, this inductively preserves the score condition for them. This is further explained below:\n\n\nCall the $s$ people who you are about to delete settled. For the people who aren't settled, you need to make sure they lose exactly $s$ groups in the deletion, and that each of their remaining groups still has value at least 1. For each of the $s$ settled people, delete the group they match with one at a time. Call the group we are about to delete $G$. By the hypothesis (this is what the Hall's was for), the $n-s$ unsettled people value $G$ at most $1$. In particular, none of these unsettled people will possess a group that is contained strictly within $G$. They either own two adjacent groups whose border lies inside $G$, or they own one group that contains $G$ (or is equal to $G$).\nSuppose an unsettled person falls under the former case. Before, the two adjacent groups had a total value of at least $2$, and after deleting $G$, at most $1$ total value of cupcake was deleted from the union of those groups. Gluing the remains of those two groups together thus creates a new group with total value at least $1$, maintaining the condition. In particular, gluing these groups together decreases this unsettled person's total number of groups by one, which is what we want.\nSuppose an unsettled person falls under the latter case. So, by deleting $G$, we put a hole in this unsettled person's group. Then, they simply glue the two remains of this group together with another group to the left. The value of this new group is at least $1$ (in fact, equality holds only when there the remains of the group totaled $0$ in value).\nWe obviously don't need to worry about regrouping the settled people. So, repeating this process $s$ times on each of the settled people will leave us with only the $n-s$ unsettled people remaining, each of whom have $n-s$ groups.\n\nThis allows you to reformulate the problem with $n-s$ people, and the solution follows by induction.",
+    "sample_grading": "{\n    \"points\": 7,\n    \"scheme\": [\n        {\n            \"title\": \"Defining a graph\",\n            \"points\": 1,\n            \"desc\": \"Redefines the problem as a graph matching problem by considering a single person's bubbles.\"\n        },\n        {\n            \"title\": \"Hall's theorem\",\n            \"points\": 3,\n            \"desc\": \"Applies the converse of Hall's theorem as many times as possible to reach a set that has a perfect matching\"\n        },\n        {\n            \"title\": \"Reducing the problem\",\n            \"points\": 3,\n            \"desc\": \"Shows that by applying the matching of the final set you can reduce the problem by 1 person.\"\n        }\n    ]\n}"
+  }
+]

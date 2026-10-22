@@ -1,0 +1,317 @@
+[
+  {
+    "problem_idx": "1",
+    "problem": "Let $P \\in \\mathbb{R}[x]$ be a polynomial with real coefficients, and suppose $\\operatorname{deg}(P) \\geq 2$. For every $x \\in \\mathbb{R}$, let $\\ell_{x} \\subset \\mathbb{R}^{2}$ denote the line tangent to the graph of $P$ at the point ( $x, P(x)$ ).\n(a) Suppose that the degree of $P$ is odd. Show that $\\bigcup_{x \\in \\mathbb{R}} \\ell_{x}=\\mathbb{R}^{2}$.\n(b) Does there exist a polynomial of even degree for which the above equality still holds?",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "description": "The model reduces the problem to showing that for all points (a, b) in the plane, the functional equation $b = aP'(r) + P(r) - rP'(r)$ needs to have a solution for some $r \\in \\mathbb{R}$.",
+        "points": 2,
+        "title": "Functional Equation"
+      },
+      {
+        "description": "The model shows that the equation always has a solution if the rhs is odd.",
+        "points": 1,
+        "title": "Uneven degree"
+      },
+      {
+        "description": "The model shows that if $P$ has uneven degree, the functional $aP'(r) + P(r) - rP'(r)$ is also uneven, and finishes the proof for part (a)",
+        "points": 1,
+        "title": "Finishing part (a)"
+      },
+      {
+        "description": "The model shows that if the rhs is of even degree, there is some $b$ such that the equation has no solution.",
+        "points": 2,
+        "title": "Even degree"
+      },
+      {
+        "description": "The model shows that the rhs is of even degree, finishing part (b).",
+        "points": 1,
+        "title": "Finishing part (b)"
+      }
+    ],
+    "sample_solution": "(a) Suppose that the degree of $P$ is odd and let $(a, b) \\in \\mathbb{R}$ be arbitrary. Given $r \\in \\mathbb{R}$, the equation for $\\ell_r$ is given by\n\\[\n\\ell_r = \\left\\{(x, y) \\in \\mathbb{R}^2 \\mid y = P'(r)(x - r) + P(r)\\right\\}.\n\\]\nFor this line to pass through the point $(a, b)$ it is therefore necessary and sufficient that\n\\[\nb = aP'(r) + P(r) - rP'(r).\n\\]\nThis is a polynomial equation in $r$, which always has a real solution as soon as we can show that the degree is odd. Indeed, if $P(r) = cr^n + \\ldots$ describes the leading term, then the right hand side of the above equation has leading term $(c - nc)r^n$. Since $c \\neq 0$ and we assumed that $n \\geq 2$, we must have $c - nc \\neq 0$. The right hand side therefore has the same degree as $P$, completing the proof.\n\n\\noindent (b) If the degree of $P$ is even, then this can never be true, because the degree of $aP'(r) + P(r) - rP'(r)$ is now even by the same argument and therefore it has a global minimum (or maximum) over the reals, below (or above) which no value of $b$ will yield a real solution for $r$."
+  },
+  {
+    "problem_idx": "2",
+    "problem": "Let $f: \\mathbb{R} \\rightarrow \\mathbb{R}$ be a twice continuously differentiable function, and suppose that $\\int_{-1}^{1} f(x) \\mathrm{d} x=0$ and $f(1)=f(-1)=1$. Prove that\n\n$$\n\\int_{-1}^{1}\\left(f^{\\prime \\prime}(x)\\right)^{2} \\mathrm{~d} x \\geq 15\n$$\nand find all such functions for which equality holds.",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "description": "For applying the Cauchy Inequality on the second derivative and a generic function. All points are awarded if the inequality is applied to a a specific function which leads to the correct lower bound.",
+        "points": 1,
+        "title": "Applying the Cauchy Inequality"
+      },
+      {
+        "description": "Finds a differentiable function on which Cauchy's Inequality can be applied. 1 point is given if a multiple of $1-x^2$ is stated without proving any useful properties of the composition, and all points are awarded if the derivation process is not shown.",
+        "points": 2,
+        "title": "Deriving a useful function"
+      },
+      {
+        "description": "Through the Cauchy Inequality, or otherwise, finishes the proof of the integral lower bound. If a method other than Cauchy is successfully utilised, all points for previous sections should be awarded.",
+        "points": 2,
+        "title": "Finishing of the lower bound"
+      },
+      {
+        "description": "Finding the polynomial, for which equality is satisfied. This can be done by using the Cauchy inequality equality condition, or through computing the coefficients of the degree-4 polynomial through boundary conditions.",
+        "points": 2,
+        "title": "Recovering the polynomial for $f$"
+      }
+    ],
+    "sample_solution": "If $g$ is an arbitrary twice continuously differentiable function on $[-1,1]$, then by applying the Cauchy--Schwarz inequality for $f''$ and $g$ and integrate by parts twice we get\n\\[\n\\sqrt{\\int_{-1}^{1} (f'')^2 \\cdot \\int_{-1}^{1} g^2} \\geq \\int_{-1}^{1} f''g = \\Big[f'(1)g(1) - f'(-1)g(-1)\\Big] - \\int_{-1}^{1} f'g' =\n\\]\n\\[\n= \\Big[f'(1)g(1) - f'(-1)g(-1)\\Big] - \\Big[f(1)g'(1) - f(-1)g'(-1)\\Big] + \\int_{-1}^{1} fg''\n\\]\n\\[\n= \\Big[f'(1)g(1) - f'(-1)g(-1)\\Big] - g'(1) + g'(-1) + \\int_{-1}^{1} fg''. \\tag{1}\n\\]\nIn order to get rid of the terms $f'(1)g(1)$ and $f'(-1)g(-1)$ we will chose $g$ such that $g(1) = g(-1) = 0$. Moreover, if $g''$ is constant, so $g$ is an at most quadratic polynomial, then $\\int_{-1}^{1} fg'' = g'' \\int_{-1}^{1} f = 0$. Hence, it is reasonable to apply (1) with $g(x) = (1+x)(1-x) = 1 - x^2$.\n\nWith this choice,\n\\[\ng(1) = g(-1) = 0, \\quad g'(1) = -2, \\quad g'(-1) = 2, \\quad g'' \\equiv -2\n\\]\nand\n\\[\n\\int_{-1}^{1} g^2 = \\int_{-1}^{1} (1 - 2x^2 + x^4)\\,dx = \\frac{16}{15},\n\\]\nso we get\n\\[\n\\sqrt{\\int_{-1}^{1} (f'')^2 \\cdot \\frac{16}{15}} \\geq 0 - 0 - g'(1) + g'(-1) + 0 = 4,\n\\]\n\\[\n\\int_{-1}^{1} (f'')^2 \\geq 15.\n\\]\n\nEquality in Cauchy--Schwarz in (1) holds only if there exists a real $\\lambda$ such that $f''(x) = \\lambda g(x)$ almost everywhere in $[-1,1]$; by continuity of $f''$ and $g$ we have $f'' = \\lambda g$ everywhere on the interval $[-1,1]$. Hence $f(x)$ must have the form\n\\[\nf(x) = \\lambda\\left(\\frac{x^2}{2} - \\frac{x^4}{12}\\right) + ax + b, \\quad \\text{with } \\lambda, a, b \\in \\mathbb{R}.\n\\]\nFrom $\\int_{-1}^{1} f(x)\\,dx = 0$, we get $0 = \\frac{3\\lambda}{10} + 2b$, hence $b = -\\frac{3}{20}\\lambda$. Moreover, the condition $f(1) = f(-1) = 1$ implies\n\\[\n\\lambda\\left(\\frac{1}{2} - \\frac{1}{12}\\right) + a - \\frac{3}{20}\\lambda = f(1) = 1 = f(-1) = \\lambda\\left(\\frac{1}{2} - \\frac{1}{12}\\right) - a - \\frac{3}{20}\\lambda\n\\]\nhence $a = 0$, and $\\lambda = \\frac{15}{4}$.\n\nIn conclusion, the equality holds if and only if\n\\[\nf(x) = \\frac{15}{4} \\cdot \\left(\\frac{x^2}{2} - \\frac{x^4}{12} - \\frac{3}{20}\\right) = \\frac{-5x^4 + 30x^2 - 9}{16} \\quad \\text{for all } x \\in [-1,1].\n\\]"
+  },
+  {
+    "problem_idx": "3",
+    "problem": "Denote by $\\mathcal{S}$ the set of all real symmetric $2025 \\times 2025$ matrices of rank $1$ whose entries take values $-1$ or $+1$. Let $A, B \\in \\mathcal{S}$ be matrices chosen independently uniformly at random. Find the probability that $A$ and $B$ commute, i.e. $A B=B A$.",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "description": "The model shows that a matrix in $\\mathcal{S}$ can be expressed as $\\varepsilon v v^T$ for some $\\varepsilon \\in \\{-1, 1\\}$ and $v \\in \\{-1, 1\\}^{2025}$.",
+        "points": 2,
+        "title": "Form of matrices in $\\mathcal{S}$"
+      },
+      {
+        "description": "The model shows that the size of $\\mathcal{S}$ is $2^{2025}$",
+        "points": 1,
+        "title": "Size of $\\mathcal{S}$"
+      },
+      {
+        "description": "The model shows that $A$ and $B$ commute if and only if $A = \\pm B$.",
+        "points": 3,
+        "title": "Commutation condition"
+      },
+      {
+        "description": "The model shows that the probability that $A$ and $B$ commute is $\\frac{1}{2^{2024}}$.",
+        "points": 1,
+        "title": "Wrap up"
+      }
+    ],
+    "sample_solution": "Let $n = 2025$. First, we give a characterisation of matrices in $S$.\n\nSuppose that $A = (a_{ij})_{i,j=1}^{n} \\in S$. Since $\\operatorname{rk} A = 1$, for every $1 < i, j \\leq n$, we have\n\\[\n\\det \\begin{pmatrix} a_{11} & a_{1j} \\\\ a_{i1} & a_{ij} \\end{pmatrix} = a_{11}a_{ij} - a_{i1}a_{1j} = a_{11}a_{ij} - a_{i1}a_{j1} = 0.\n\\]\nIf $a_{11} = 1$ then this means $a_{ij} = a_{i1}a_{j1}$. In this case, let $u = \\begin{pmatrix} a_{11} \\\\ a_{21} \\\\ \\vdots \\\\ a_{n1} \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ a_{21} \\\\ \\vdots \\\\ a_{n1} \\end{pmatrix}$; then we have $A = (a_{i1}a_{j1}) = uu^\\top$. Otherwise, if $a_{11} = -1$, we have $a_{ij} = -a_{i1}a_{j1}$. In that case, let $u = \\begin{pmatrix} -a_{11} \\\\ -a_{21} \\\\ \\vdots \\\\ -a_{n1} \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ -a_{21} \\\\ \\vdots \\\\ -a_{n1} \\end{pmatrix}$; then $A = -(a_{i1}a_{j1}) = -uu^\\top$.\n\nHence, all matrices in $S$ can uniquely be written as $\\pm uu^\\top$ with a vector $u = \\begin{pmatrix} 1 \\\\ u_2 \\\\ \\vdots \\\\ u_n \\end{pmatrix}$ such that $u_2, \\ldots, u_n \\in \\{\\pm 1\\}$. (Note that $\\operatorname{rk}(uu^\\top) = 1$ is satisfied.) In particular, we have $|S| = 2^n$, because the sign and the coordinates $u_2, \\ldots, u_n$ can be chosen independently.\n\nNow, if $A = \\pm uu^T$ and $B = \\pm vv^T$ are elements of $S$, then\n\\[\nAB = \\pm(uu^\\top)(vv^\\top) = \\pm u(u^\\top v)v^\\top = \\pm u \\cdot \\langle u, v \\rangle \\cdot v^\\top = \\pm \\langle u, v \\rangle \\cdot (u_i v_j)_{i,j=1}^{n}\n\\]\nand similarly\n\\[\nBA = \\pm \\langle u, v \\rangle \\cdot (v_i u_j)_{i,j=1}^{n}.\n\\]\n\nSince $n = 2025$ is odd, it follows that $\\langle u, v \\rangle \\neq 0$. The first columns of the matrices $uv^\\top = (u_i v_j)_{i,j=1}^{n}$ and $vu^\\top = (v_i u_j)_{i,j=1}^{n}$ are $u$ and $v$, respectively. Hence, $AB = BA$ if and only if $u = v$; in other words, if $A = \\pm B$.\n\nFor each $A \\in S$, there are precisely two suitable matrices $B \\in S$, so the probability that $A, B$ commute is $\\dfrac{2}{|S|} = \\dfrac{1}{2^{n-1}}$."
+  },
+  {
+    "problem_idx": "4",
+    "problem": "Let $a$ be an even positive integer. Find all real numbers $x$ such that\n\n$$\n\\left\\lfloor\\sqrt[a]{b^{a}+x} \\cdot b^{a-1}\\right\\rfloor=b^{a}+\\lfloor x / a\\rfloor\n$$\nholds for every positive integer $b$.\n(Here $\\lfloor x\\rfloor$ denotes the largest integer that is no greater than $x$.)",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "description": "For setting $b=1$ and simplifying $\\lfloor \\sqrt[a]{1+x} \\rfloor$ to $1+\\lfloor\\frac{x}{a}\\rfloor$",
+        "points": 1,
+        "title": "Simplifying the LHS for $b=1$"
+      },
+      {
+        "description": "Finds a 2-variable condition for $a$ and $x$ (or alternative combinations of the 2), from which the correct bound can be derived with simple algebraic observations.",
+        "points": 2,
+        "title": "Creating a tight condition between $a$ and $x$"
+      },
+      {
+        "description": "Showing that it is necessary that $x\\in [-1, a)$ for $a \\geqslant 4$ and $x\\in [-1, 2) \\cup [3, 4)$ if $a=2$.",
+        "points": 1,
+        "title": "Finding the necessary condition for x"
+      },
+      {
+        "description": "Proves that all $x$ from the restricted set work for $a\\geqslant 2$.",
+        "points": 2,
+        "title": "Sufficiency for $a\\geqslant 4$"
+      },
+      {
+        "description": "Proves that all $x$ from the restricted set work for $a=2$.",
+        "points": 1,
+        "title": "Sufficiency for $a=2$"
+      }
+    ],
+    "sample_solution": "We will show that if $a = 2$ then we must have $x \\in [-1, 2) \\cup [3, 4)$, otherwise $x \\in [-1, a)$.\n\nSuppose that $\\lfloor x/a \\rfloor = m$. Then $m \\leq x/a < m + 1$, and\n\\[\nam \\leq x < a(m+1). \\tag{2}\n\\]\nLet $b = 1$. Then\n\\[\n\\floor{\\sqrt[a]{1 + x}} = 1 + \\lfloor x/a \\rfloor. \\tag{3}\n\\]\nFrom (3) it follows that $\\floor{\\sqrt[a]{1 + x}} = 1 + m$, or $1 + m \\leq \\sqrt[a]{1 + x} < 2 + m$, or\n\\[\n(1 + m)^a - 1 \\leq x < (2 + m)^a - 1, \\tag{4}\n\\]\nwhere we have used the obvious fact that $m \\geq -1$. Indeed, the number $\\sqrt[a]{1 + x}$ and therefore the number $\\floor{\\sqrt[a]{1 + x}} = 1 + m$ is not negative. By Bernoulli's inequality, the following two inequalities --- which compare the inequalities (2) and (4) --- hold:\n\\[\nam \\leq (1 + m)^a - 1, \\tag{5}\n\\]\n\\[\na(m + 1) \\leq (1 + (m + 1))^a - 1, \\tag{6}\n\\]\nwhere in (5), equality holds if and only if $m = 0$, and in (6), equality holds if and only if $m = -1$.\n\nFrom (2), (4)--(6), it follows that\n\\[\n(m + 1)^a - 1 \\leq x < a(m + 1). \\tag{7}\n\\]\nFrom (7), it follows that $(m + 1)^a - 1 < a(m + 1)$. Therefore\n\\[\n(m + 1)^a \\leq a(m + 1). \\tag{8}\n\\]\nFrom (8), it follows that $m + 1 \\leq a^{\\frac{1}{a-1}}$. If $a > 2$ then $m + 1 < a^{\\frac{1}{a-1}} < 2$, because $2^{a-1} > a$ for $a > 2$ (one can prove this by mathematical induction) and $1 < a^{\\frac{1}{a-1}} < 2$ is not an integer. Therefore, if $a > 2$ then $m = 0$ or $m = -1$. If $a = 2$ then $m = -1$, $m = 0$ or $m = 1$. From (7), it follows that the equality (3) holds true only for the values $-1 \\leq x < 0$ ($m = -1$), $0 \\leq x < a$ ($m = 0$) if $a > 2$, and $-1 \\leq x < 0$ ($m = -1$), $0 \\leq x < 2$ ($m = 0$) and $3 \\leq x < 4$ ($m = 1$) if $a = 2$.\n\nWe will now prove that for these values of $x$, the equality (1) is true for all positive integers $b$.\n\nFrom (7), it follows that $b^a + (m+1)^a - 1 \\leq b^a + x < b^a + a(m+1)$ and\n\\[\n1 + \\frac{(m+1)^a - 1}{b^a} \\leq 1 + \\frac{x}{b^a} < 1 + \\frac{a(m+1)}{b^a}. \\tag{9}\n\\]\nBy Bernoulli's inequality\n\\[\n1 + \\frac{a(m+1)}{b^a} \\leq \\left(1 + \\frac{m+1}{b^a}\\right)^a, \\tag{10}\n\\]\nwhere equality occurs if and only if $m = -1$. It is easy to check that for $m = 1$ (if $a = 2$), $m = 0$ and $m = -1$, the following inequality holds true:\n\\[\n\\left(1 + \\frac{m}{b^a}\\right)^a \\leq 1 + \\frac{(m+1)^a - 1}{b^a}. \\tag{11}\n\\]\n\n\\newpage\n\nFrom (9)--(11), it follows that\n\\[\n\\left(1 + \\frac{m}{b^a}\\right)^a \\leq 1 + \\frac{x}{b^a} < \\left(1 + \\frac{m+1}{b^a}\\right)^a. \\tag{12}\n\\]\nFrom (12), it follows that\n\\[\nb^a + m \\leq \\sqrt[a]{b^a + x \\cdot b^{a-1}} < b^a + m + 1,\n\\]\n\\[\nb^a + \\lfloor x/a \\rfloor \\leq \\sqrt[a]{b^a + x \\cdot b^{a-1}} < b^a + \\lfloor x/a \\rfloor + 1.\n\\]\nConsequently, equality (1) holds."
+  },
+  {
+    "problem_idx": "5",
+    "problem": "For a positive integer $n$, let $[n]=\\{1,2, \\ldots, n\\}$. Denote by $S_{n}$ the set of all bijections from $[n]$ to $[n]$, and let $T_{n}$ be the set of all maps from $[n]$ to $[n]$. Define the order $\\operatorname{ord}(\\tau)$ of a map $\\tau \\in T_{n}$ as the number of distinct maps in the set $\\{\\tau, \\tau \\circ \\tau, \\tau \\circ \\tau \\circ \\tau, \\ldots\\}$ where o denotes composition. Finally, let\n\n$$\nf(n)=\\max _{\\tau \\in S_{n}} \\operatorname{ord}(\\tau) \\quad \\text { and } \\quad g(n)=\\max _{\\tau \\in T_{n}} \\operatorname{ord}(\\tau) .\n$$\n\nProve that $g(n)<f(n)+n^{0.501}$ for sufficiently large $n$.",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "description": "Shows that the order of a map is less than or equal to $N+R$ where $N$ is the order of the permutation consisting of all elements in a cycle and $R$ is the maximum number for which $\\tau^{R-1}(x)$ is not in a cycle for some $x$.",
+        "points": 2,
+        "title": "Splitting the order"
+      },
+      {
+        "description": "Finishes the simple case where $R < n^{0.501}$",
+        "points": 1,
+        "title": "Finish simple case"
+      },
+      {
+        "description": "If $R > n^{0.501}$, shows there exists a prime $p < n^{0.501}$ that does not divide any cycle length of the permutation by a correct application of the Prime Number Theorem.",
+        "points": 2,
+        "title": "Prime does not divide cycle length"
+      },
+      {
+        "description": "Shows that $N \\leqslant f(n)/2$ by using a permutation from $S_n$ that has order at least pN.",
+        "points": 1,
+        "title": "$N \\leqslant f(n)/2$"
+      },
+      {
+        "description": "Shows that $f(n)/2 > n$ for large enough $n$ and finishes the proof.",
+        "points": 1,
+        "title": "Finishes the proof"
+      }
+    ],
+    "sample_solution": "For every $\\tau \\in T_n$ we need to prove that $\\operatorname{ord}(\\tau) \\leqslant f(n) + n^{0.501}$ (if $n$ is large enough).\n\nDenote by $C(\\tau)$ the set of elements $x \\in [n]$ for which $\\tau^k(x) = \\underbrace{\\tau(\\ldots\\tau}_{k}(x)\\ldots) = x$ for some $k > 0$. It is immediate that $C(\\tau)$ is a $\\tau$-invariant set; let $\\tau_c = \\tau|_{C(\\tau)}$, that is a permutation on $C(\\tau)$.\n\nLet $N$ be the order of this permutation $\\tau_c$, clearly $N \\leqslant g(n)$. Consider an arbitrary element $x \\in [n] \\setminus C(\\tau)$. The sequence $x, \\tau(x), \\tau^2(x), \\ldots$ is eventually periodic, but not from the beginning, because $x \\notin C(\\tau)$.\n\nLet $h(x) > 0$ be the minimal number for which $\\tau^{h(x)}(x)$ is in the period; equivalently, this is the minimal number for which $\\tau^{h(x)}(x) \\in C(\\tau)$. Let $R = \\max_{x \\in [n] \\setminus C(\\tau)} h(x)$. Note that $\\tau^R(x) = \\tau^{R+N}(x)$ for all $x \\in [n]$, since $\\tau^R(x) \\in C(\\tau)$ for all $x \\in [n]$. Therefore, $\\operatorname{ord}(\\tau) \\leqslant N + R$. Thus, if $R < n^{0.501}$, we are done.\n\nNow assume that $R \\geqslant n^{0.501}$, that is, $h(x) \\geqslant n^{0.501}$ for some $x \\notin C(\\tau)$. It yields $|C(\\tau)| \\leq n - n^{0.501}$. Consider the cycle lengths of the permutation $\\tau_c$. We claim that there exists a prime number $p < n^{0.501}$ which does not divide any of these lengths. Indeed, otherwise the sum of cycle lengths of $\\tau_c$ is not less than the sum of all prime numbers not exceeding $n^{0.501}$ (because each positive integer is not less than the sum of its prime divisors, that in turn follows from $ab \\geqslant a + b$ for $a, b \\geqslant 2$). But for large $n$, the number of prime numbers less than $n^{0.501}$ is at least $n^{0.5009}$ by some weak version of Prime Number Theorem (that also has many short proofs). Therefore, their sum exceeds $n$, contradiction.\n\nNow we may consider the permutation $\\tau_0 \\in S_n$ which acts as $\\tau_c$ on $C(\\tau)$ and has a cycle of length $p$ on $[n] \\setminus C(\\tau)$. The order of $\\tau_0$ is not less than $p \\cdot N$, therefore $N \\leqslant f(n)/p \\leqslant f(n)/2$, and by the above argument we get $\\operatorname{ord}(\\tau) \\leqslant N + R \\leqslant f(n)/2 + n < f(n)$ for large $n$."
+  },
+  {
+    "problem_idx": "6",
+    "problem": "Let $f:(0, \\infty) \\rightarrow \\mathbb{R}$ be a continuously differentiable function, and let $b>a>0$ be real numbers such that $f(a)=f(b)=k$. Prove that there exists a point $\\xi \\in(a, b)$ such that\n\n$$\nf(\\xi)-\\xi f^{\\prime}(\\xi)=k\n$$",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "description": "Given for defining an auxiliary function that is a linear combination of $f(x)/x$ and $1/x$, or if the defined function is shown to correctly finish the solution.",
+        "points": 1,
+        "title": "Defining an auxiliary function"
+      },
+      {
+        "description": "Proves critical properties of the auxiliary function. That includes the fact that it can generate the required expression for $\\xi$, that the values at $a, b$ of the function/derivative can be utilised in the continuity argument, or any non-standard argument that leads to a solution.",
+        "points": 2,
+        "title": "Properties of the auxiliary function"
+      },
+      {
+        "description": "Applying a continuity argument (Rolle's theorem or Cauchy's Mean Value Theorem) for finding a $\\xi$ from the auxiliary function",
+        "points": 3,
+        "title": "Continuity arguments"
+      },
+      {
+        "description": "For combining all steps in a coherent solution and solving.",
+        "points": 1,
+        "title": "Finishing"
+      }
+    ],
+    "sample_solution": "Observe that if we consider $g(x) = f(x)/x$ and take its derivative, we get\n\\[\ng'(x) = \\frac{xf'(x) - f(x)}{x^2},\n\\]\nwhere the numerator is almost the expression we have in the problem.\n\nNow we apply Cauchy's theorem to the functions $g(x) = f(x)/x$ and $h(x) = 1/x$, well-defined over $[a, b]$. This gives us the existence of a value $\\xi \\in [a, b]$ such that\n\\[\n\\frac{g(a) - g(b)}{h(a) - h(b)} = \\frac{g'(\\xi)}{h'(\\xi)}.\n\\]\nHere,\n\\[\n\\frac{g'(\\xi)}{h'(\\xi)} = \\frac{\\frac{\\xi f'(\\xi) - f(\\xi)}{\\xi^2}}{-\\frac{1}{\\xi^2}} = f(\\xi) - \\xi f'(\\xi)\n\\]\nand\n\\[\n\\frac{g(a) - g(b)}{h(a) - h(b)} = \\frac{\\frac{f(a)}{a} - \\frac{f(b)}{b}}{\\frac{1}{a} - \\frac{1}{b}} = k,\n\\]\nwhich concludes the proof."
+  },
+  {
+    "problem_idx": "7",
+    "problem": "Let $\\mathbb{Z}_{>0}$ be the set of positive integers. Find all nonempty subsets $M \\subseteq \\mathbb{Z}_{>0}$ satisfying both of the following properties:\n(a) if $x \\in M$, then $2 x \\in M$,\n(b) if $x, y \\in M$ and $x+y$ is even, then $\\frac{x+y}{2} \\in M$.",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "description": "Shows that $M$ is closed under addition.",
+        "points": 1,
+        "title": "Closed under addition"
+      },
+      {
+        "description": "Shows that $M$ contains at least one odd integer.",
+        "points": 1,
+        "title": "Contains odd integers"
+      },
+      {
+        "description": "Shows that there exists two members of $M$ whose difference is the greatest common divisor $d$ of $M$.",
+        "points": 2,
+        "title": "GCD $d$"
+      },
+      {
+        "description": "Shows that if $a, a+d, c \\in M$ and $c < a$, then $a-d \\in M$.",
+        "points": 1,
+        "title": "First recurrence"
+      },
+      {
+        "description": "Shows that $a-d,a \\in M$ implies $a+2d \\in M$.",
+        "points": 1,
+        "title": "Second recurrence"
+      },
+      {
+        "description": "Shows that all sets of the form $\\{c, c+d, c+2d, \\ldots\\}$ for some positive odd integer $d$ and positive integer $c$ that is a multiple of $d$ are solutions.",
+        "points": 1,
+        "title": "Finishes"
+      }
+    ],
+    "sample_solution": "Note that $M$ is closed under addition since $x + y = \\frac{2x + 2y}{2}$. Therefore it is closed under multiplication by an arbitrary natural number. Also, $M$ contains some odd numbers since $x \\in M \\implies \\frac{x + 2x}{2} = \\frac{3x}{2} \\in M$, and we can repeat this until all factors of $2$ are removed from a number.\n\nLet $d$ be the greatest common divisor of all members from $M$. Then $M \\subseteq d\\,\\mathbb{Z}_{>0}$ and $d$ is odd. Since $d$ can be represented in the form\n\\[\nd = v_1 a_1 + v_2 a_2 + \\ldots + v_k a_k - v_{k+1} a_{k+1} - v_{k+2} a_{k+2} - \\ldots - v_n a_n\n\\]\nfor some $a_i \\in M$ and $v_i \\in \\mathbb{Z}_{>0}$, there exist two members of $M$ with difference $d$.\n\nLet $c$ be the minimal element of $M$, $c < a$, and $a, a + d \\in M$. We choose the largest $x \\in M$ such that $x < a$. Then the only elements of $M$ in the interval $[x, a + d]$ are $x$, $a$, and $a + d$, since $M \\subseteq d\\,\\mathbb{Z}$. Meanwhile, $x < \\frac{x + a}{2} < a$, so $x + a$ must be odd, hence $x + a + d$ is even, and then $x < \\frac{x + a + d}{2} < a + d$ means $x = a - d$. Thus, the following implication holds:\n\\[\n(a, a + d \\in M \\text{ and } c < a) \\implies a - d \\in M.\n\\]\n\nSimilarly, by setting $x \\in M$ to be the smallest such that $x > a$ (we know that such an element exists, since $2a \\in M$), we obtain\n\\[\na - d, a \\in M \\implies a + d \\in M.\n\\]\n\nWe thus get that $M$ is obtained as the set of elements of the arithmetic progression $c + kd$ ($k \\in \\mathbb{Z}_{\\geq 0}$). Obviously, this set satisfies both of the properties (a) and (b). Hence, we have proved that $M$ satisfies these properties if and only if $M = \\{nd \\mid m \\leqslant n \\in \\mathbb{N}\\}$ for some $m \\in \\mathbb{N}$ and odd $d$."
+  },
+  {
+    "problem_idx": "8",
+    "problem": "For an $n \\times n$ real matrix $A \\in M_{n}(\\mathbb{R})$, denote by $A^{\\mathrm{R}}$ its counter-clockwise $90^{\\circ}$ rotation. For example,\n\n$$\n\\left[\\begin{array}{lll}\n1 & 2 & 3 \\\\\n4 & 5 & 6 \\\\\n7 & 8 & 9\n\\end{array}\\right]^{\\mathrm{R}}=\\left[\\begin{array}{lll}\n3 & 6 & 9 \\\\\n2 & 5 & 8 \\\\\n1 & 4 & 7\n\\end{array}\\right]\n$$\n\nProve that if $A=A^{\\mathrm{R}}$ then for any eigenvalue $\\lambda$ of $A$, we have $\\operatorname{Re} \\lambda=0$ or $\\operatorname{Im} \\lambda=0$.",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "description": "Redefines and proves the rotation as a left-multiplication of a matrix $J$ with $A^T$",
+        "points": 2,
+        "title": "Defining the rotation"
+      },
+      {
+        "description": "Derives critical properties of the rotation matrix (i.e. symmetry/involutoryness, or any other property that leads to a complete solution)",
+        "points": 2,
+        "title": "Properties of rotation"
+      },
+      {
+        "description": "As a consequence of the rotation's properties, derives key properties for the eigenvalues from both sides of the equation.",
+        "points": 2,
+        "title": "Expressing the eigenvalues in 2 distinct ways"
+      },
+      {
+        "description": "Using the aforementioned steps to derive that every eigenvalue is either real or imaginary.",
+        "points": 1,
+        "title": "Proving $\\lambda^2$ is real"
+      }
+    ],
+    "sample_solution": "If $\\lambda = 0$, the claim holds as $0 \\in \\mathbb{R}$. Assume $\\lambda \\neq 0$ is an eigenvalue of $A$ with a corresponding eigenvector $x \\in \\mathbb{C}^n \\setminus \\{0\\}$.\n\nWe will first express the operation $A \\mapsto A^R$ algebraically. The element at position $(i, j)$ in $A$ ends up at position $(n + 1 - j, i)$ in $A^R$. Thus, the rotation is defined by the relation $(A^R)_{i,j} = A_{j,n+1-i}$.\n\nLet $J$ be the matrix where $J_{i,j} = \\delta_{i}^{n+1-j}$. The operation of transposing $A$ and then reversing the rows gives the matrix $JA^\\top$. The $(i, j)$-th element of this matrix is\n\\[\n(JA^\\top)_{i,j} = \\sum_{k=1}^{n} J_{i,k}(A^\\top)_{k,j} = (A^\\top)_{n+1-i,j} = A_{j,n+1-i}.\n\\]\nThis matches the definition of $A^R$, so we get the identity $A^R = JA^\\top$. Note that the matrix $J$ is symmetric ($J = J^\\top$) and it is its own inverse ($J^2 = I$).\n\nThe given condition $A = A^R$ thus means $A = JA^\\top$. Left-multiplying by $J$ yields\n\\[\nJA = J(JA^\\top) = (J^2)A^\\top = A^\\top. \\tag{$*$}\n\\]\n\nNow, consider the standard Hermitian inner product $(u, v) = v^* u$ on $\\mathbb{C}^n$. We evaluate $(Ax, Ax)$ in two ways. First, using our choice of $x$ as an eigenvector corresponding to $\\lambda$:\n\\[\n(Ax, Ax) = (\\lambda x, \\lambda x) = |\\lambda|^2 \\|x\\|^2.\n\\]\nSecond, using the adjoint property and ($*$):\n\\[\n(Ax, Ax) = (A^* Ax, x) = (\\overline{A}^\\top Ax, x) = (JA(\\lambda x), x) = \\lambda(JAx, x) = \\lambda^2(Jx, x).\n\\]\nTogether, these give us $|\\lambda|^2 \\|x\\|^2 = \\lambda^2 (Jx, x)$.\n\nThe term $(Jx, x)$ is real, since $(Jx, x)^* = (J^* x, x) = (Jx, x)$ because $J$ is real and symmetric. Since $\\lambda \\neq 0$ and $x \\neq 0$, the left side $|\\lambda|^2 \\|x\\|^2$ is a positive real number. This implies that $\\lambda^2 (x, Jx)$ must also be a positive real number. And as $(x, Jx)$ is real, so is $\\lambda^2$.\n\nThus, either $\\lambda$ is real (if $\\lambda^2 > 0$) or its real part is $0$ (if $\\lambda^2 < 0$). This completes the proof."
+  },
+  {
+    "problem_idx": "9",
+    "problem": "Let $n$ be a positive integer. Consider the following random process which produces a sequence of $n$ distinct positive integers $X_{1}, X_{2}, \\ldots, X_{n}$.\nFirst, $X_{1}$ is chosen randomly with $\\mathbb{P}\\left(X_{1}=i\\right)=2^{-i}$ for every positive integer $i$. For $1 \\leq j \\leq n-1$, having chosen $X_{1}, \\ldots, X_{j}$, arrange the remaining positive integers in increasing order as $n_{1}<n_{2}<$ $\\cdots$, and choose $X_{j+1}$ randomly with $\\mathbb{P}\\left(X_{j+1}=n_{i}\\right)=2^{-i}$ for every positive integer $i$.\nLet $Y_{n}=\\max \\left\\{X_{1}, \\ldots, X_{n}\\right\\}$. Show that\n\n$$\n\\mathbb{E}\\left[Y_{n}\\right]=\\sum_{i=1}^{n} \\frac{2^{i}}{2^{i}-1}\n$$\nwhere $\\mathbb{E}\\left[Y_{n}\\right]$ is the expected value of $Y_{n}$.",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "description": "Either solves the problem with induction, solving the base case, and the inductive step.",
+        "points": 1,
+        "title": "First step"
+      },
+      {
+        "description": "With induction, revises the problem to use \\mathbb{E}[Y_{j+1} - Y_j] = \\mathbb{P}(X_{j+1} > Y_j) \\mathbb{E}(X_{j+1} - Y_j | X_{j+1} > Y_j).",
+        "points": 2,
+        "title": "Second step"
+      },
+      {
+        "description": "In induction, finds \\mathbb{P}(X_{j+1} > Y_j) (4 points) and \\mathbb{E}(X_{j+1} - Y_j | X_{j+1} > Y_j) (1 point).",
+        "points": 3,
+        "title": "Third step"
+      },
+      {
+        "description": "Finishes the proof in both cases.",
+        "points": 1,
+        "title": "Finishes"
+      }
+    ],
+    "sample_solution": "For each $j \\in [n] = \\{1, 2, \\ldots, n\\}$, let $Y_j = \\max\\{X_1, \\ldots, X_j\\}$. We use induction on $j$ to show that\n\\[\nE[Y_j] = \\sum_{i=1}^{j} \\frac{2^i}{2^i - 1} \\quad \\text{for all } j \\in [n].\n\\]\nThe base case $j = 1$ follows easily from definition.\n\nFor the inductive step, it suffices to show that $E[Y_{j+1} - Y_j] = \\frac{2^{j+1}}{2^{j+1} - 1}$ for every $j \\in [n-1]$. Note that $Y_{j+1} \\neq Y_j$ if and only if $X_{j+1} > Y_j = \\max\\{X_1, \\ldots, X_j\\}$, in which case $Y_{j+1} = X_{j+1}$. Thus,\n\\[\nE[Y_{j+1} - Y_j] = P[X_{j+1} > Y_j] \\cdot E[X_{j+1} - Y_j \\mid X_{j+1} > Y_j].\n\\]\n\nTo compute $P[X_{j+1} > Y_j]$, note that for any fixed pairwise distinct positive integers $a_1, \\ldots, a_j$ and $a > \\max\\{a_1, \\ldots, a_j\\}$,\n\\begin{align*}\nP[(X_1, \\ldots, X_{j+1}) = (a, a_1, \\ldots, a_j)] &= P[(X_1, \\ldots, X_{j+1}) = (a_1, a, \\ldots, a_j)]/2 \\\\\n&= P[(X_1, \\ldots, X_{j+1}) = (a_1, a_2, a, \\ldots, a_j)]/4 \\\\\n&= \\cdots = P[(X_1, \\ldots, X_{j+1}) = (a_1, \\ldots, a_j, a)]/2^j.\n\\end{align*}\nTherefore, summing over all possible $a_1, \\ldots, a_j$ and $a > \\max\\{a_1, \\ldots, a_j\\}$, we see that\n\\[\nP[X_{j+1} > Y_j] = \\frac{2^j}{\\sum_{i=0}^{j} 2^i} = \\frac{2^j}{2^{j+1} - 1}.\n\\]\n\nTo finish, it is easy to see that\n\\[\nE[X_{j+1} - Y_j \\mid X_{j+1} > Y_j] = \\sum_{t=1}^{\\infty} t \\cdot P[X_{j+1} = Y_j + t \\mid X_{j+1} > Y_j] = \\sum_{t=1}^{\\infty} \\frac{t}{2^t} = 2.\n\\]"
+  },
+  {
+    "problem_idx": "10",
+    "problem": "For any positive integer $N$, let $S_{N}$ be the number of pairs of integers $1 \\leq a, b \\leq N$ such that the number $\\left(a^{2}+a\\right)\\left(b^{2}+b\\right)$ is a perfect square. Prove that the limit\n\n$$\n\\lim _{N \\rightarrow \\infty} \\frac{S_{N}}{N}\n$$\nexists and find its value.",
+    "points": 7,
+    "grading_scheme": [
+      {
+        "description": "For claiming the limit value is 1 and showing the simple lower bound.",
+        "points": 1,
+        "title": "Lower bound and exact value"
+      },
+      {
+        "description": "Generalizing the form of the solutions to solutions to the Pell equation.",
+        "points": 2,
+        "title": "Simplifying to solution to the Pell equation"
+      },
+      {
+        "description": "Presents an argument for the sizes of the solutions for the Pell equation and how they relate to the solutions of the original equation",
+        "points": 1,
+        "title": "Argument about the solution size"
+      },
+      {
+        "description": "Arguing that the square-free part $d$ of $a^2+a$ cannot take values much larger than $N$",
+        "points": 1,
+        "title": "Discounting large $d$"
+      },
+      {
+        "description": "Arguing that the asymptotic behaviour for the number of valid solutions where $d$ is small is linear in $N$ with coefficient <1.",
+        "points": 1,
+        "title": "Behaviour for single-solution $d$"
+      },
+      {
+        "description": "Showing by any reasonable argument that the number of solutions when there are at least 2 solutions fora given $d$, that the total sum is sub-linear in $N$",
+        "points": 1,
+        "title": "Binding the contribution of multi-solution $d$"
+      }
+    ],
+    "sample_solution": "Throughout the solution, we use the Vinogradov notation $A \\ll B$ to mean $A = O(B)$, which in turn means that there exists a constant $C > 0$, independent of the quantities $A$ and $B$, such that $|A| \\leq C|B|$, on the entirety of the domain where $A$ and $B$ are defined (for us, this will always be the interval $[1, \\infty)$.)\n\nWe will show that the limit equals $1$, corresponding to the trivial solutions $a = b$. Note that $(a^2 + a)(b^2 + b)$ is a perfect square if and only if $a^2 + a = dz_1^2$ and $b^2 + b = dz_2^2$ for some square-free $d$ and $z_1, z_2 \\in \\mathbb{Z}_{>0}$. From this point on, all sums over $d$ will be over square-free positive integers. Multiplying the equations by $4$ and setting $y_i = 2z_i$, we get\n\\[\nS_N = \\sum_{d \\ll N^2} c_d(N)^2 + O(1),\n\\]\nwhere $c_d(N)$ is the number of solutions to $(2k+1)^2 - dy^2 = 1$ with $1 \\leq k \\leq N$ and $1 \\leq y \\leq N/2$ with $y$ even. Other than for the purpose of identifying the trivial solutions, we will work with Pell's equation $x^2 - dy^2 = 1$ with $1 \\leq x, y \\ll N$. Split the sum as\n\\[\n\\sum_{\\substack{d \\ll N^2 \\\\ c_d(N) \\leq 1}} c_d(N) + \\sum_{\\substack{d \\ll N^2 \\\\ c_d(N) > 1}} c_d(N)^2.\n\\]\n\nNote that if $d \\gg N$, then the size of the second solution $x_2 = x_1^2 + dy_1^2$ (coming from $x_2 + y_2\\sqrt{d} = (x_1 + y_1\\sqrt{d})^2$, where $x_1 + y_1\\sqrt{d}$ is the fundamental solution) is $\\gg d \\gg N$. Hence we may assume that $d \\ll N$ if $c_d(N) > 1$ (with a suitable choice of hidden constants). Denote the second sum by $E$ (for error, which we will bound momentarily). The first sum is easily manipulated into being asymptotic to $N$ (up to the error $E$), using the fact that fixing $x = 2a + 1 \\leq 2N + 1$ fixes the square-free $d$ and the square $y^2$, namely\n\\[\n\\sum_{\\substack{d \\ll N^2 \\\\ c_d(N) \\leq 1}} c_d(N) = \\sum_{\\substack{d \\ll N^2}} \\sum_{\\substack{1 \\leq a \\leq N \\\\ 1 \\leq y \\leq \\frac{N}{2}}} \\chi_{(2a+1)^2 - dy^2 = 1} + O(E) = \\sum_{a=1}^{N} \\sum_{d,y} \\chi_{(2a+1)^2 - 1 = dy^2} + O(E) = N + O(E).\n\\]\nHere $\\chi_{\\cdot}$ denotes the characteristic function (taking the value $0$ if $\\cdot$ is not satisfied, and $1$ otherwise).\n\nNow we bound the error sum $E$. Note that solutions to Pell's equation $x^2 - dy^2 = 1$ grow exponentially, hence we have $c_d(N) \\ll \\log N$. This means we may assume that $N \\gg d \\gg N^{1-\\delta}$ for some small enough fixed $\\delta > 0$, since the contribution of $d \\ll N^{1-\\delta}$ is bounded by $N^{1-\\delta} \\log N$. By $x^2 - dy^2 = 1$, we have that $d \\gg N^{1-\\delta}$ implies $y \\ll N^{1/2 + \\delta}$.\n\nFixing each $y \\ll N^{\\delta/2}$ gives $\\ll N^{1-\\delta}$ choices for $x$ (hence also for $d$). So we may assume $N^{1/2+\\delta} \\gg y \\gg N^{\\delta/2}$, since the contribution of $y \\ll N^{\\delta/2}$ is bounded by $N^{1-\\delta/2}$.\n\nBy placing $x$ in residue classes modulo $y^2$ and splitting the interval $[1, 2N+1]$ into intervals of length $y^2$, we get that each choice of $N^{\\delta/2} \\ll y \\ll N^{1/2+\\delta}$ gives $\\ll Ng(y)/y^2$ choices for $x$ (hence also for $d$) by $y^2 \\mid x^2 + 1$, where $g(y) = |\\{1 \\leq x \\leq y^2 : x^2 + 1 \\equiv 0 \\pmod{y^2}\\}|$. By elementary number theory, $g$ is multiplicative and $g(p^k) \\leq 2$ for all prime powers $p^k$. In particular we obtain\n\n\\newpage\n\n\\noindent $g(n) \\leq \\tau(n) \\ll n^\\varepsilon$ for any $\\varepsilon > 0$ (this is not hard to prove directly for $g$, but may be used as a well-known fact for the divisor function $\\tau$). Therefore the contribution of such $y$ is\n\\[\n\\ll \\sum_{N^{\\delta/2} \\ll y \\ll N^{1/2+\\delta}} \\frac{Ng(y)}{y^2} \\ll N^{1-\\delta/2 + \\varepsilon},\n\\]\nwhich is acceptable by choosing $\\varepsilon > 0$ small enough. We conclude that $S_N = N(1 + o(1))$, as desired.\n\n\\medskip\n\\noindent\\textit{Remark.} There is a secondary infinite family of solutions of ``size'' $\\sqrt{N}$, namely given by $a = 4b(b+1)$. This shows that\n\\[\n\\limsup_{N \\to \\infty} \\frac{S_N - N}{\\sqrt{N}} > 0.\n\\]"
+  }
+]
