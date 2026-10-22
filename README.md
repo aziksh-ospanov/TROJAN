@@ -1,5 +1,14 @@
 # TROJAN: Synthetic Error-Injected Proof Gradings
 
+<div align="center" style="line-height: 1;">
+  <a href="https://huggingface.co/datasets/aziksh/TROJAN-BENCH-S" target="_blank" style="margin: 2px;">
+    <img alt="Hugging Face: TROJAN-BENCH-S" src="https://img.shields.io/badge/%F0%9F%A4%97%20Dataset-TROJAN--BENCH--S-ffc107?color=ffc107&logoColor=white" style="display: inline-block; vertical-align: middle;"/>
+  </a>
+  <a href="https://huggingface.co/datasets/aziksh/TROJAN-BENCH-H" target="_blank" style="margin: 2px;">
+    <img alt="Hugging Face: TROJAN-BENCH-H" src="https://img.shields.io/badge/%F0%9F%A4%97%20Dataset-TROJAN--BENCH--H-ffc107?color=ffc107&logoColor=white" style="display: inline-block; vertical-align: middle;"/>
+  </a>
+</div>
+
 TROJAN generates **graded student proofs with known ground-truth scores** for olympiad-style math
 problems. For each problem it picks a target score profile (how many points each rubric criterion
 should earn), asks an LLM to write a realistic student proof that earns *exactly* those points, and
