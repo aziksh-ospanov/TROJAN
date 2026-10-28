@@ -454,11 +454,13 @@ the benchmark conversion splits on those headers. The critic must return a JSON 
 
 ## Bibtex Citation
 ```bibtex
-@inproceedings{
-   ospanov2026llmgrading,
-   title={Can LLMs Reliably Grade Olympiad Proofs? A Controlled Study of Mathematical Verification with LLMs},
-   author={Azim Ospanov and Zijin Feng and Ding Ding and Chengwu Liu and Haoli Bai and Jiacheng Sun and Lifeng Shang and Farzan Farnia},
-   booktitle={The Fortieth Annual Conference on Neural Information Processing Systems},
-   year={2026}
+@misc{ospanov2026llmsreliablygradeolympiad,
+      title={Can LLMs Reliably Grade Olympiad Proofs? A Study of Mathematical Verification with LLMs}, 
+      author={Azim Ospanov and Zijin Feng and Ding Ding and Chengwu Liu and Haoli Bai and Jiacheng Sun and Lifeng Shang and Farzan Farnia},
+      year={2026},
+      eprint={2610.36767},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2610.36767}, 
 }
 ```
