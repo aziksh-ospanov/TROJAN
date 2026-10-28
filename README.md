@@ -1,5 +1,13 @@
 # TROJAN: Synthetic Error-Injected Proof Gradings
 
+
+
+Azim Ospanov <sup>1,</sup><sup>2</sup>, Zijin Feng <sup>1</sup>, Ding Ding <sup>1,</sup><sup>3</sup>, Chengwu Liu <sup>1</sup>, Haoli Bai <sup>1</sup>, Jiacheng Sun <sup>1</sup>, Lifeng Shang <sup>1</sup>, Farzan Farnia <sup>2</sup>
+
+![Header Logo](assets/header.png)
+
+<sup>1</sup> <sub>**Huawei Foundation Model Department**, </sub> <sup>2</sup> <sub>**The Chinese University of Hong Kong**, </sub> <sup>3</sup> <sub>**The Hong Kong University of Science and Technology**</sub>
+
 <div align="center" style="line-height: 1;">
   <a href="https://huggingface.co/datasets/aziksh/TROJAN-BENCH-S" target="_blank" style="margin: 2px;">
     <img alt="Hugging Face: TROJAN-BENCH-S" src="https://img.shields.io/badge/%F0%9F%A4%97%20Dataset-TROJAN--BENCH--S-ffc107?color=ffc107&logoColor=white" style="display: inline-block; vertical-align: middle;"/>
