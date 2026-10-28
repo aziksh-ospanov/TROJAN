@@ -18,7 +18,7 @@
         "max_tokens": 32768
     },
     "claude-opus-4-6-thinking": {
-        "name": "claude-opus-4-6-thinking-aws",
+        "name": "claude-opus-4-6-thinking",
         "api": "YOUR_API_KEY",
         "url": "https://<openai-compatible-endpoint>/v1",
         "max_tokens": 65536
