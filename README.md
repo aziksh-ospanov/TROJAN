@@ -12,7 +12,7 @@
 TROJAN generates **graded student proofs with known ground-truth scores** for olympiad-style math
 problems. For each problem it picks a target score profile (how many points each rubric criterion
 should earn), asks an LLM to write a realistic student proof that earns *exactly* those points, and
-then refines the proof with an LLM critic until the critic agrees the target is met.
+then refines the proof with an LLM critic until the critic agrees the solution is aligned with target grade.
 
 The result is a benchmark for **LLM-as-a-judge graders**: a good judge should recover the injected
 score.
@@ -194,7 +194,7 @@ python download_dataset.py MathArena/usamo_2025 --split train
 ```jsonc
 {
   "claude-opus-4-6-thinking": {
-    "name": "claude-opus-4-6-thinking-aws",        // model id sent to the API
+    "name": "claude-opus-4-6-thinking",        // model id sent to the API
     "api":  "YOUR_API_KEY",
     "url":  "https://<openai-compatible-endpoint>/v1",
     "max_tokens": 65536                             // output budget per call (default 8192)
